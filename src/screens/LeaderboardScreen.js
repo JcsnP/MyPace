@@ -17,8 +17,8 @@ export default function LeaderboardScreen() {
       <Text style={{color: '#D70040', fontSize: 30, textTransform: 'uppercase', fontWeight: '800', textAlign: 'right'}}>Total</Text>
       <ScrollView>
         {
-          users.map((user) => (
-            <UserCard name={user.name} paces={user.paces} />
+          users.map((user, key) => (
+            <UserCard name={user.name} paces={user.paces} key={key} />
           ))
         }
       </ScrollView>

@@ -13,9 +13,9 @@ export default function SettingScreen() {
   return(
     <View style={styles.container}>
       <Text style={styles.title}>Setting</Text>
-      <SettingCard label='Edit Profile' icon='account-edit' />
-      <SettingCard label='Badges' icon='trophy-award' />
-      <SettingCard label='About' icon='progress-question' />
+      <SettingCard label='Edit Profile' icon='account-edit' onPress={() => {alert('edit profile')}} />
+      <SettingCard label='Badges' icon='trophy-award' onPress={() => {alert('badges')}} />
+      <SettingCard label='About' icon='progress-question' onPress={() => {alert('about')}} />
     </View>
   );
 }

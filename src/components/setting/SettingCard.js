@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 
 export default function SettingCard({ label, icon, onPress }) {
   const color = '#A9A9A9';
   const size = 20;
   return(
-    <View style={styles.card}>
+    <TouchableOpacity style={styles.card} onPress={onPress}>
       <Text style={{color: color, fontSize: 18}}>{label}</Text>
       <MaterialCommunityIcons name={icon} color={color} size={size} />
-    </View>
+    </TouchableOpacity>
   );
 }
 
