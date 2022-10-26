@@ -10,8 +10,9 @@ const styles = StyleSheet.create({
     paddingVertical: 20
   },
   title: {
-    fontSize: '30',
-    marginVertical: 30,
+    fontSize: '35',
+    marginTop: 30,
+    marginBottom: 25,
     fontWeight: '800',
     color: '#fff'
   },

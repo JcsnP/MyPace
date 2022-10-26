@@ -75,7 +75,11 @@ const BottomTabs = () => {
 export default function App() {
   return (
     <>
-      <SensorReportScreen />
+      {/*<SensorReportScreen />*/}
+      <StatusBar style='light' />
+      <NavigationContainer>
+        <BottomTabs />
+      </NavigationContainer>
     </>
   );
 }
