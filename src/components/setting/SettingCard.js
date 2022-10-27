@@ -6,7 +6,7 @@ export default function SettingCard({ label, icon, onPress }) {
   const color = '#A9A9A9';
   const size = 20;
   return(
-    <TouchableOpacity style={styles.card} onPress={onPress}>
+    <TouchableOpacity style={[styles.card]} onPress={onPress}>
       <Text style={{color: color, fontSize: 18}}>{label}</Text>
       <MaterialCommunityIcons name={icon} color={color} size={size} />
     </TouchableOpacity>
