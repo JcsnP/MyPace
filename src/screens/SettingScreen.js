@@ -14,8 +14,8 @@ export default function SettingScreen({ navigation }) {
     <View style={styles.container}>
       <Text style={styles.title}>Setting</Text>
       <SettingCard label='Edit Profile' icon='account-edit' onPress={() => {alert('edit profile')}} />
-      <SettingCard label='Badges' icon='trophy-award' onPress={() => {alert('badges')}} />
-      <SettingCard label='About' icon='progress-question' onPress={() => {alert('AboutScreen')}} />
+      <SettingCard label='Badges' icon='trophy-award' onPress={() => {navigation.navigate('BadgesScreen')}} />
+      <SettingCard label='About' icon='progress-question' onPress={() => {navigation.navigate('AboutScreen')}} />
     </View>
   );
 }

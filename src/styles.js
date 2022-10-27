@@ -16,6 +16,12 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     color: '#fff'
   },
+  settingTitle: {
+    fontSize: '35',
+    marginBottom: 25,
+    fontWeight: '800',
+    color: '#fff'
+  },
   warningTitle: {
     fontSize: '50',
     fontWeight: '800',
