@@ -11,6 +11,7 @@ import LeaderboardScreen from './src/screens/LeaderboardScreen';
 import SettingScreen from './src/screens/SettingScreen';
 import ReportScreen from './src/screens/ReportScreen';
 import SensorReportScreen from './src/screens/SensorReportScreen';
+import AboutScreen from './src/screens/AboutScreen';
 
 // bottom tab navigation
 const Tab = createBottomTabNavigator();
@@ -85,7 +86,7 @@ export default function App() {
 }
 
 /*
-<NavigationContainer>
+      <NavigationContainer>
         <BottomTabs />
       </NavigationContainer>
 */
