@@ -5,7 +5,6 @@ import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 // import pages
 import HomeScreen from '../screens/HomeScreen';
 import LeaderboardScreen from '../screens/LeaderboardScreen';
-import SettingScreen from '../screens/SettingScreen';
 import ReportScreen from '../screens/ReportScreen';
 import SensorReportScreen from '../screens/SensorReportScreen';
 import AboutScreen from '../screens/AboutScreen';
