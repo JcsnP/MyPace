@@ -62,6 +62,7 @@ export default function HomeScreen(props) {
 
   return(
     <SafeAreaView style={styles.container}>
+      <ScrollView style={{width: '100%'}} showsVerticalScrollIndicator={false}>
       <View style={{display: 'flex', alignItems: 'center'}}>
         <CircularProgress
            value={currentStepCount}
@@ -77,16 +78,15 @@ export default function HomeScreen(props) {
            titleColor={"#A9A9A9"}
            titleStyle={{ fontWeight: "bold", fontSize: 30, textTransform: "uppercase" }}
          />
-         <ChangeGoal />
+        <ChangeGoal />
+        
+        {/* ActivityCard */}
+        <ActivityCard />
+        { /* Statistics */}
+        <SatisticsCard />
 
-        <ScrollView style={{width: '100%'}}>
-          {/* ActivityCard */}
-          <ActivityCard />
-          { /* Statistics */}
-          <SatisticsCard />
-        </ScrollView>
-
-      </View>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }

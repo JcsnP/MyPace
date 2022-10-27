@@ -6,7 +6,7 @@ export default function UserCard({name, paces}) {
   return(
     <View style={styles.card}>
       <Text style={styles.text}>{name}</Text>
-      <Text style={styles.text}>{paces}</Text>
+      <Text style={styles.text}>{paces.toLocaleString()}</Text>
     </View>
   );
 }

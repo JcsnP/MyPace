@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { View, Text } from "react-native";
+import { View, Text, Modal, Pressable, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 // import style
