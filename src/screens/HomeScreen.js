@@ -80,10 +80,11 @@ export default function HomeScreen(props) {
          />
         <ChangeGoal />
         
-        {/* ActivityCard */}
-        <ActivityCard />
         { /* Statistics */}
+        <ActivityCard />
+        {/* ActivityCard */}
         <SatisticsCard />
+        
 
         </View>
       </ScrollView>
