@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { Pedometer } from 'expo-sensors';
 import CircularProgress from "react-native-circular-progress-indicator";
 import { Dimensions } from 'react-native';
@@ -10,6 +10,8 @@ import styles from '../styles';
 
 // import components
 import ChangeGoal from "../components/Homescreen/ChangeGoal";
+import ActivityCard from "../components/Homescreen/ActivityCard";
+import SatisticsCard from "../components/Homescreen/StatisticsCard";
 
 export default function HomeScreen(props) {
   const [isPedometerAvailable, setIsPedometerAvailable] = useState('checking');
@@ -58,24 +60,6 @@ export default function HomeScreen(props) {
     return ()=> _unsubscribe();
   },[])
 
-  const ActivityCard = () => {
-    return(
-      <>
-        <Text style={{color: "#fff", fontWeight: '800', fontSize: 25, alignSelf: 'flex-start'}}>Activity</Text>
-        <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
-          <View style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-            <Text style={{color: '#fff', fontWeight: '800', fontSize: 20}}>4,300</Text>
-            <Text style={{color: '#fff', fontWeight: '800', fontSize: 15}}>Paces</Text>
-          </View>
-          <View style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-            <Text style={{color: '#fff', fontWeight: '800', fontSize: 20}}>50</Text>
-            <Text style={{color: '#fff', fontWeight: '800', fontSize: 15}}>Mins</Text>
-          </View>
-        </View>
-      </>
-    );
-  }
-
   return(
     <SafeAreaView style={styles.container}>
       <View style={{display: 'flex', alignItems: 'center'}}>
@@ -95,8 +79,12 @@ export default function HomeScreen(props) {
          />
          <ChangeGoal />
 
-        {/* ActivityCard */}
-        <ActivityCard />
+        <ScrollView style={{width: '100%'}}>
+          {/* ActivityCard */}
+          <ActivityCard />
+          { /* Statistics */}
+          <SatisticsCard />
+        </ScrollView>
 
       </View>
     </SafeAreaView>
