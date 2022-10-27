@@ -1,13 +1,52 @@
 import React, { useState, useEffect } from "react";
 import { View, TextInput, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import { MYPACE_API } from "@env";
 
 // import style
 import styles from '../../styles';
+import axios from "axios";
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }) {
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
+
+  const _storeData = async (data) => {
+    try {
+      await AsyncStorage.setItem('@Token', data);
+    } catch(err) {
+      console.log(err);
+    }
+  }
+
+  const Login = ({ }) => {
+    axios.post(`${MYPACE_API}login`, {
+      username: username,
+      password: password
+    })
+    .then((response) => {
+      if(response.data.status === 'ok') {
+        _storeData(response.data.token);
+      } else {
+        alert('failed to login');
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+
+    /*
+    const data = await response.json();
+    if(data.status === 'ok') {
+      await AsyncStorage.setItem('@token', data.token);
+      const token = await AsyncStorage.getItem('@token');
+      console.log(token);
+    }
+    */
+  }
+
   return(
     <SafeAreaView style={styles.container}>
       <View style={{display: 'flex', justifyContent: 'flex-start', height: '100%'}}>
@@ -30,6 +69,7 @@ export default function LoginScreen() {
 
           <TouchableOpacity
             style={styles.loginButton}
+            onPress={Login}
           >
             <Text style={styles.buttonLabel}>LOGIN</Text>
           </TouchableOpacity>

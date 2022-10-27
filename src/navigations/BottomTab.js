@@ -1,6 +1,10 @@
+import React, { useState, useEffect } from 'react';
 import { Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import { MYPACE_API } from "@env";
 
 // import pages
 import HomeScreen from '../screens/HomeScreen';
@@ -16,6 +20,26 @@ import SettingStack from './SettingStack';
 const Tab = createBottomTabNavigator();
 
 const BottomTabsMain = () => {
+  const [user, setUser] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+
+  const fetchUser = async () => {
+    const token = AsyncStorage.getItem('@token');
+    const response = await fetch(`${MYPACE_API}authen`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+    })
+    const data = await response.json();
+    console.log(data)
+  }
+
+  useEffect(() => {
+    fetchUser();
+  }, [isLoading]);
+
   return(
     <Tab.Navigator
       initialRouteName='HomeScreen'

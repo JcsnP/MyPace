@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     color: '#A9A9A9',
     fontWeight: '700',
     fontSize: 20,
-    marginBottom: 15
+    marginBottom: 15,
   },
   loginButton: {
     borderWidth: 1,
