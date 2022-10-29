@@ -9,21 +9,25 @@ const Stack = createStackNavigator();
 
 // import navigations
 import BottomTabs from './src/navigations/BottomTab';
+import Routers from './src/routers';
 
 // import screens
-import LoginScreen from './src/screens/Authen/LoginScreen';
+
 
 export default function App() {
   return (
     <>
-      <LoginScreen />
+      <StatusBar style='light' />
+      <NavigationContainer>
+        <Routers />
+      </NavigationContainer>
     </>
   );
 }
 
 /*
-      <StatusBar style='light' />
-      <NavigationContainer>
-        <BottomTabs />
-      </NavigationContainer>
+  <StatusBar style='light' />
+  <NavigationContainer>
+    <BottomTabs />
+  </NavigationContainer>
 */

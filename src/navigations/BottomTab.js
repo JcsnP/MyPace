@@ -24,16 +24,20 @@ const BottomTabsMain = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchUser = async () => {
-    const token = AsyncStorage.getItem('@token');
-    const response = await fetch(`${MYPACE_API}authen`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
-      },
-    })
-    const data = await response.json();
-    console.log(data)
+    try {
+      const token = AsyncStorage.getItem('@token');
+      const response = await fetch(`http://10.10.10.112:3000/authen`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+      })
+      const data = await response.json();
+      console.log(data)
+    } catch(error) {
+      console.log(error.message);
+    }
   }
 
   useEffect(() => {

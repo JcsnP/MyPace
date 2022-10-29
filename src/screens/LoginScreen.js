@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MYPACE_API } from "@env";
 
 // import style
-import styles from '../../styles';
+import styles from '../styles';
 import axios from "axios";
 
 export default function LoginScreen({ navigation }) {
@@ -16,13 +16,14 @@ export default function LoginScreen({ navigation }) {
   const _storeData = async (data) => {
     try {
       await AsyncStorage.setItem('@Token', data);
+      navigation.navigate('App');
     } catch(err) {
       console.log(err);
     }
   }
 
   const Login = ({ }) => {
-    axios.post(`${MYPACE_API}login`, {
+    axios.post(`http://10.10.10.112:3000/login`, {
       username: username,
       password: password
     })
@@ -36,15 +37,6 @@ export default function LoginScreen({ navigation }) {
     .catch((err) => {
       console.log(err);
     })
-
-    /*
-    const data = await response.json();
-    if(data.status === 'ok') {
-      await AsyncStorage.setItem('@token', data.token);
-      const token = await AsyncStorage.getItem('@token');
-      console.log(token);
-    }
-    */
   }
 
   return(
