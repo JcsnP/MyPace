@@ -9,6 +9,8 @@ export default function LogoutButton() {
   const Logout = async() => {
     try {
       await AsyncStorage.removeItem('@Token');
+      await AsyncStorage.removeItem('UserData');
+      console.log('logout');
       navigation.navigate('Splash');
     } catch(error) {
       console.log(error.message);

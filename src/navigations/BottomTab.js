@@ -10,39 +10,50 @@ import { MYPACE_API } from "@env";
 import HomeScreen from '../screens/HomeScreen';
 import LeaderboardScreen from '../screens/LeaderboardScreen';
 import ReportScreen from '../screens/ReportScreen';
-import SensorReportScreen from '../screens/SensorReportScreen';
-import AboutScreen from '../screens/AboutScreen';
 
 // import stack
 import SettingStack from './SettingStack';
+import axios from 'axios';
 
 // bottom tab navigation
 const Tab = createBottomTabNavigator();
 
 const BottomTabsMain = () => {
   const [user, setUser] = useState({});
+  const [Token, setToken] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchUser = async () => {
+  const getToken = async() => {
+    setToken(await AsyncStorage.getItem('@Token'));
+    console.log('get token')
+  }
+
+  const SaveUser = async (data) => {
     try {
-      const token = AsyncStorage.getItem('@token');
-      const response = await fetch(`http://10.10.10.112:3000/authen`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + token
-        },
-      })
-      const data = await response.json();
-      console.log(data)
+      await AsyncStorage.setItem('UserData', JSON.stringify(data));
+      console.log('save user')
     } catch(error) {
       console.log(error.message);
     }
   }
 
   useEffect(() => {
-    fetchUser();
-  }, [isLoading]);
+    console.log('main page')
+    getToken();
+    axios.get(`${MYPACE_API}/users/me`, {
+      headers: {
+        Authorization: "Bearer " + Token
+      }
+    })
+    .then((response) => {
+      if(response.data.status === 'ok') {
+        SaveUser(response.data.user);
+      }
+    })
+    .catch((error) => {
+      console.log(error.message);
+    })
+  }, []);
 
   return(
     <Tab.Navigator

@@ -16,14 +16,23 @@ export default function LoginScreen({ navigation }) {
   const _storeData = async (data) => {
     try {
       await AsyncStorage.setItem('@Token', data);
-      navigation.navigate('App');
+      console.log('login');
+      navigation.replace('App');
+      // add navigation reset to disable user ti swipe screen to the past
+      // ToT finally........
+      /*
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'App' }],
+      })
+      */
     } catch(err) {
       console.log(err);
     }
   }
 
   const Login = ({ }) => {
-    axios.post(`http://10.10.10.112:3000/login`, {
+    axios.post(`${MYPACE_API}/login`, {
       username: username,
       password: password
     })
@@ -70,7 +79,7 @@ export default function LoginScreen({ navigation }) {
           <TouchableOpacity style={{marginVertical: 10}}
             onPress={() => {navigation.navigate('Register')}}
           >
-            <Text style={{color: '#009AF5', fontWeight: '700', textDecorationLine: 'underline', fontSize: 15, textAlign: 'left'}}>Have an Account Already?</Text>
+            <Text style={{color: '#009AF5', fontWeight: '700', textDecorationLine: 'underline', fontSize: 15, textAlign: 'left'}}>Register an Account</Text>
           </TouchableOpacity>
         </View>
       </View>

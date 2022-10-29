@@ -31,6 +31,7 @@ export default function RegisterScreen({ navigation }) {
           onChangeText={setPassword}
           value={password}
           placeholderTextColor="#A9A9A9"
+          secureTextEntry={true}
           placeholder="Password" />
         
         { /* link to information page */ }
