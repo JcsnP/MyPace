@@ -1,10 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from '@react-navigation/native';
 
 export default function LogoutButton() {
+  const navigation = useNavigation();
+  const Logout = async() => {
+    try {
+      await AsyncStorage.removeItem('@Token');
+      navigation.navigate('Splash');
+    } catch(error) {
+      console.log(error.message);
+    }
+  }
   return(
-    <TouchableOpacity style={styles.card} onPress={() => {alert('bye')}}>
+    <TouchableOpacity style={styles.card} onPress={Logout}>
       <Text style={styles.label}>LOGOUT</Text>
     </TouchableOpacity>
   );
