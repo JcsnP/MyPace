@@ -15,7 +15,7 @@ export default function SplashScreen({navigation}) {
   const handleGetToken = async() => {
     let token = await AsyncStorage.getItem('@Token');
     if(!token) {
-      navigation.replace('Authen');
+      navigation.replace('Login');
     } else {
       navigation.replace('App');
     }
@@ -24,10 +24,6 @@ export default function SplashScreen({navigation}) {
   return(
     <SafeAreaView style={styles.container}>
       <View style={{height: '100%', width: '100%', justifyContent: 'center'}}>
-        <Image
-          style={customStyle.img}
-          source={require('../../assets/man-walking.png')}
-        />
         <Text style={customStyle.title}>MYPACE</Text>
       </View>
     </SafeAreaView>
@@ -35,14 +31,9 @@ export default function SplashScreen({navigation}) {
 }
 
 const customStyle = StyleSheet.create({
-  img: {
-    width: '60%',
-    height: '60%',
-    alignSelf: 'center',
-  },
   title: {
     color: '#FFF',
-    fontSize: '60',
+    fontSize: '80',
     fontWeight: '800',
     textAlign: 'center'
   }

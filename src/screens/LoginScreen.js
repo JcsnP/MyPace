@@ -65,6 +65,13 @@ export default function LoginScreen({ navigation }) {
           >
             <Text style={styles.buttonLabel}>LOGIN</Text>
           </TouchableOpacity>
+
+          { /* register */}
+          <TouchableOpacity style={{marginVertical: 10}}
+            onPress={() => {navigation.navigate('Register')}}
+          >
+            <Text style={{color: '#009AF5', fontWeight: '700', textDecorationLine: 'underline', fontSize: 15, textAlign: 'left'}}>Have an Account Already?</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>
