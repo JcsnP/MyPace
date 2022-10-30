@@ -19,41 +19,38 @@ import axios from 'axios';
 const Tab = createBottomTabNavigator();
 
 const BottomTabsMain = () => {
-  const [user, setUser] = useState({});
-  const [Token, setToken] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState('');
+  const [token, setToken] = useState('');
 
-  const getToken = async() => {
+  // get token function
+  const _getToken = async() => {
     setToken(await AsyncStorage.getItem('@Token'));
-    console.log('get token')
   }
 
-  const SaveUser = async (data) => {
-    try {
-      await AsyncStorage.setItem('UserData', JSON.stringify(data));
-      console.log('save user')
-    } catch(error) {
-      console.log(error.message);
-    }
+  // store user details function
+  const _storeDetails = async(user) => {
+    await AsyncStorage.setItem('UserDetails', JSON.stringify(user));
   }
 
   useEffect(() => {
-    console.log('main page')
-    getToken();
+    // get token
+    _getToken();
+
+    // authen to store user's data
     axios.get(`${MYPACE_API}/users/me`, {
       headers: {
-        Authorization: "Bearer " + Token
+        "Authorization" : `Bearer ${token}`
       }
     })
     .then((response) => {
       if(response.data.status === 'ok') {
-        SaveUser(response.data.user);
+        _storeDetails(response.data.user);
       }
     })
     .catch((error) => {
       console.log(error.message);
     })
-  }, []);
+  })
 
   return(
     <Tab.Navigator

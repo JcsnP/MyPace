@@ -18,14 +18,6 @@ export default function LoginScreen({ navigation }) {
       await AsyncStorage.setItem('@Token', data);
       console.log('login');
       navigation.replace('App');
-      // add navigation reset to disable user ti swipe screen to the past
-      // ToT finally........
-      /*
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'App' }],
-      })
-      */
     } catch(err) {
       console.log(err);
     }

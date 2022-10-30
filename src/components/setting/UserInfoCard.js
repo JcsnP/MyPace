@@ -1,34 +1,27 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, SafeAreaView, StyleSheet } from "react-native";
+import { useIsFocused } from "@react-navigation/native";
 
-export default function UserInfoCard() {
-  const [user, setUser] = useState({});
-
-  const readUser = async() => {
-    try {
-      const temp = await AsyncStorage.getItem('UserData');
-      setUser(await JSON.parse(temp));
-      console.log('dob ' + user.information.dob)
-    } catch(error) {
-      console.log(error.message);
-    }
-  }
-
-  useEffect(() => {
-    readUser();
-  }, []);
-
+export default function UserInfoCard({ user }) {
+  /*
+  if(Object.keys(user).length === 0)
+    console.log('user is empty')
+  else
+    console.log(user)
+  */
   return(
+    <>
+    <Text style={{color: '#FFF', fontWeight: '800', fontSize: 30, textAlign: 'right', marginBottom: 10}}>👋 Helllo, {user.username}</Text>
     <View style={styles.card}>
       <View style={styles.flexContainer}>
         <View style={styles.data}>
           <Text style={styles.key}>Username</Text>
-          <Text style={styles.value}>{user.username}</Text>
+          <Text style={styles.value}>asd</Text>
         </View>
         <View style={styles.data}>
           <Text style={styles.key}>Age</Text>
-          <Text style={styles.value}>dob</Text>
+          <Text style={styles.value}>asd</Text>
         </View>
         <View style={styles.data}>
           <Text style={styles.key}>Height</Text>
@@ -44,6 +37,7 @@ export default function UserInfoCard() {
         </View>
       </View>
     </View>
+    </>
   );
 }
 
