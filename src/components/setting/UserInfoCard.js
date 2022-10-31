@@ -4,12 +4,6 @@ import { View, Text, TouchableOpacity, SafeAreaView, StyleSheet } from "react-na
 import { useIsFocused } from "@react-navigation/native";
 
 export default function UserInfoCard({ user }) {
-  /*
-  if(Object.keys(user).length === 0)
-    console.log('user is empty')
-  else
-    console.log(user)
-  */
   return(
     <>
     <Text style={{color: '#FFF', fontWeight: '800', fontSize: 30, textAlign: 'right', marginBottom: 10}}>👋 Helllo, {user.username}</Text>
@@ -17,23 +11,23 @@ export default function UserInfoCard({ user }) {
       <View style={styles.flexContainer}>
         <View style={styles.data}>
           <Text style={styles.key}>Username</Text>
-          <Text style={styles.value}>asd</Text>
+          <Text style={styles.value}>{user.username}</Text>
         </View>
         <View style={styles.data}>
           <Text style={styles.key}>Age</Text>
-          <Text style={styles.value}>asd</Text>
+          <Text style={styles.value}>{new Date().getFullYear() - new Date(user.information.dob).getFullYear()}</Text>
         </View>
         <View style={styles.data}>
           <Text style={styles.key}>Height</Text>
-          <Text style={styles.value}>d</Text>
+          <Text style={styles.value}>{user.information.height}</Text>
         </View>
         <View style={styles.data}>
           <Text style={styles.key}>Weight</Text>
-          <Text style={styles.value}>d</Text>
+          <Text style={styles.value}>{user.information.weight}</Text>
         </View>
         <View style={styles.data}>
           <Text style={styles.key}>Gender</Text>
-          <Text style={styles.value}>s</Text>
+          <Text style={styles.value}>{(user.information.gender.charAt(0).toUpperCase()+user.information.gender.slice(1))}</Text>
         </View>
       </View>
     </View>

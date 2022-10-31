@@ -19,25 +19,26 @@ import axios from "axios";
 export default function SettingScreen({ navigation }) {
   const [user, setUser] = useState({});
   const [token, setToken] = useState('');
+  const [isLoaded, setIsLoaded] = useState(false);
 
-  /*
-  const isFocused = useIsFocused();
-  useEffect(() => {
-    if(isFocused) {
-      async function fetchUserDetails() {
-        setUser(await AsyncStorage.getItem('UserDetails'));
-        console.log(user)
-      }
+  async function fetchUserDetails() {
+    setUser(JSON.parse(await AsyncStorage.getItem('UserDetails')));
+    setIsLoaded(true);
+  }
 
-      fetchUserDetails();
-    }
-  }, [isFocused])
-  */
+  // const isFocused = useIsFocused();
+  useEffect(() => { 
+    fetchUserDetails();
+  }, [isLoaded])
 
   return(
     <View style={styles.container}>
       <Text style={styles.title}>Setting</Text>
-      <UserInfoCard user={user} />
+      {
+        isLoaded && (
+          <UserInfoCard user={user} />
+        )
+      }
       <SettingCard label='Edit Profile' icon='account-edit' onPress={() => {alert('edit profile')}} />
       <SettingCard label='Badges' icon='trophy-award' onPress={() => {navigation.navigate('BadgesScreen')}} />
       <SettingCard label='About' icon='progress-question' onPress={() => {navigation.navigate('AboutScreen')}} />

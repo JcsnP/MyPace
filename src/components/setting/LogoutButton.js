@@ -26,11 +26,11 @@ export default function LogoutButton() {
 const styles = StyleSheet.create({
   card: {
     borderWidth: 1,
-    borderColor: '#2563EB',
+    borderColor: '#B24129',
     borderRadius: 7,
     paddingHorizontal: 10,
     paddingVertical: 15,
-    backgroundColor: '#2563EB',
+    backgroundColor: '#D34C2F',
     marginVertical: 4
   },
   label: {

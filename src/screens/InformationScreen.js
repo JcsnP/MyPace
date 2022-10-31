@@ -28,7 +28,7 @@ export default function InformationScreen({ route, navigation }) {
     setDate(currentDate);
 
     let tempDate= new Date(currentDate);
-    let fDate = tempDate.getDate() + ' / ' + (tempDate.getMonth() + 1) + ' / ' + tempDate.getFullYear();
+    let fDate = tempDate.getDate() + '/' + (tempDate.getMonth() + 1) + '/' + tempDate.getFullYear();
     setDOB(fDate);
 
     console.log(fDate);
