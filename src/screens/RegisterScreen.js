@@ -18,18 +18,21 @@ export default function RegisterScreen({ navigation }) {
           style={styles.textInput}
           onChangeText={setUsername}
           value={username}
+          autoCapitalize = 'none'
           placeholderTextColor="#A9A9A9"
           placeholder="Username" />
         <TextInput 
           style={styles.textInput}
           onChangeText={setEmail}
           value={email}
+          autoCapitalize = 'none'
           placeholderTextColor="#A9A9A9"
           placeholder="Email" />
         <TextInput 
           style={styles.textInput}
           onChangeText={setPassword}
           value={password}
+          autoCapitalize = 'none'
           placeholderTextColor="#A9A9A9"
           secureTextEntry={true}
           placeholder="Password" />

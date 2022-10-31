@@ -50,6 +50,7 @@ export default function LoginScreen({ navigation }) {
             onChangeText={setUsername}
             value={username}
             placeholderTextColor="#A9A9A9"
+            autoCapitalize = 'none'
             placeholder="Username" />
 
           <TextInput 
@@ -58,6 +59,7 @@ export default function LoginScreen({ navigation }) {
             value={password}
             placeholderTextColor="#A9A9A9"
             secureTextEntry={true}
+            autoCapitalize = 'none'
             placeholder="Password" />
 
           <TouchableOpacity
