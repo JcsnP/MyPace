@@ -31,13 +31,23 @@ export default function SettingScreen({ navigation }) {
     fetchUserDetails();
   }, [isLoaded])
 
+  const useCard = () => {
+    if(isLoaded) {
+      return <UserInfoCard user={user} />;
+    } else {
+      return(
+        <View style={customStyles.card}>
+          <Text>Information loading...</Text>
+        </View>
+      );
+    }
+  }
+
   return(
     <View style={styles.container}>
       <Text style={styles.title}>Setting</Text>
       {
-        isLoaded && (
-          <UserInfoCard user={user} />
-        )
+        useCard()
       }
       <SettingCard label='Edit Profile' icon='account-edit' onPress={() => {alert('edit profile')}} />
       <SettingCard label='Badges' icon='trophy-award' onPress={() => {navigation.navigate('BadgesScreen')}} />

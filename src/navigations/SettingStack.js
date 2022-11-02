@@ -15,7 +15,7 @@ const SettingStack = () => {
       screenOptions={{
         headerStyle: {
           backgroundColor: '#1B1B1B',
-          height: 75,
+          height: 100,
         },
         headerTintColor: '#FFF',
         headerTintColor: '#A9A9A9',
