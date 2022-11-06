@@ -36,7 +36,8 @@ const customStyles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-around',
     marginVertical: 4,
-    height:'25%'
+    height: '45%',
+    width: '100%'
   },
   rankBackground: {
     borderRadius: 100,
@@ -45,7 +46,7 @@ const customStyles = StyleSheet.create({
   textHighlight: {
     fontSize: 20,
     color:'#F81250',
-    fontWeight:'bold',
+    fontWeight:'800',
     marginBottom:10,
     textTransform: 'uppercase'
   },

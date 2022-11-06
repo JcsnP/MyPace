@@ -7,7 +7,7 @@ import styles from "../styles";
 export default function BadgesScreen() {
   return(
     <SafeAreaView style={styles.container}>
-
+      <Text style={styles.settingTitle}>Badges</Text>
     </SafeAreaView>
   );
 }

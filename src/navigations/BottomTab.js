@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext, createContext } from 'react';
-import { Text, View } from 'react-native';
+import React, { useState, useEffect, createContext } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -19,7 +18,8 @@ import axios from 'axios';
 const Tab = createBottomTabNavigator();
 
 // TokenContext
-const TokenContext = createContext();
+// const TokenContext = createContext();
+import TokenContext from '../contexts/TokenContext';
 
 const BottomTabsMain = () => {
   const [user, setUser] = useState('');
@@ -119,5 +119,3 @@ export default function BottomTabs() {
     <BottomTabsMain />
   );
 }
-
-export { TokenContext };
