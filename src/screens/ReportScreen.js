@@ -41,7 +41,10 @@ export default function ReportScreen() {
     return(
       <View style={styles.container}>
         <Text style={styles.title}>Report</Text>
-        <ScrollView style={{width: '100%', height: '100%'}} showsVerticalScrollIndicator={false}>
+        <ScrollView style={{width: '100%', height: '100%'}}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{flexGrow: 1}}
+        >
           { /* ค่อยเอาเวลามาใส่ระบบคำนวณการเดินเฉลี่ย */ }
           {
             isLoaded && (
@@ -64,7 +67,7 @@ export default function ReportScreen() {
     return(
       <View style={styles.container}>
         <Text style={styles.title}>Report</Text>
-        <Text style={{color: '#FFF', fontWeight: '800', fontSize: '17'}}>There is no information about your paces.</Text>
+        <Text style={{color: '#FFF', fontWeight: '800', fontSize: 17}}>There is no information about your paces.</Text>
       </View>
     );
   }

@@ -1,7 +1,7 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useEffect, useState } from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useEffect, useState } from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import styles from '../styles';
 
@@ -33,7 +33,7 @@ export default function SplashScreen({navigation}) {
 const customStyle = StyleSheet.create({
   title: {
     color: '#FFF',
-    fontSize: '80',
+    fontSize: 80,
     fontWeight: '800',
     textAlign: 'center'
   }

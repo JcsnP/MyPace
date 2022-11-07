@@ -62,7 +62,10 @@ export default function HomeScreen(props) {
 
   return(
     <SafeAreaView style={styles.container}>
-      <ScrollView style={{width: '100%'}} showsVerticalScrollIndicator={false}>
+      <ScrollView style={{width: '100%'}}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{flexGrow: 1}}
+      >
       <View style={{display: 'flex', alignItems: 'center'}}>
         <CircularProgress
            value={currentStepCount}

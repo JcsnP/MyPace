@@ -8,7 +8,8 @@ export default function PacesBox({item}) {
         <Text style={styles.date}>{new Date(item.date).toLocaleDateString()}</Text>
         <View style={styles.flexContainer}>
           <View>
-            <Text style={styles.key}>{item.details.paces.toLocaleString()}</Text>
+            { /* เดิมทีมีข้อมูลที่ผิดพลาด ทำให้แอปไม่แสดงคอมม่าในตัวเลขบางชุด เลยลองบังคับให้ทำการแปลงข้อมูลเป้นตัวเลข */ }
+            <Text style={styles.key}>{ Number(item.details.paces).toLocaleString() }</Text>
             <Text style={styles.value}>Paces</Text>
           </View>
           <View>
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
   },
   value: {
     color: '#FFF',
-    fontSize: '15',
+    fontSize: 15,
     fontWeight: '700',
     textAlign: 'center'
   }

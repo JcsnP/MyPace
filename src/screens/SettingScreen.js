@@ -1,20 +1,20 @@
-import { StatusBar } from "expo-status-bar";
-import React, { useCallback, useEffect, useState } from "react";
-import { View, Text, Modal, Pressable, Alert, TouchableOpacity, StyleSheet } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { useIsFocused } from "@react-navigation/native";
+import { StatusBar } from 'expo-status-bar';
+import React, { useCallback, useEffect, useState } from 'react';
+import { View, Text, Modal, Pressable, Alert, TouchableOpacity, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useIsFocused } from '@react-navigation/native';
 
-import { MYPACE_API } from "@env";
+import { MYPACE_API } from '@env';
 
 // import style
 import styles from '../styles';
 
 // import components
-import SettingCard from "../components/setting/SettingCard";
-import LogoutButton from "../components/setting/LogoutButton";
-import UserInfoCard from "../components/setting/UserInfoCard";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
+import SettingCard from '../components/setting/SettingCard';
+import LogoutButton from '../components/setting/LogoutButton';
+import UserInfoCard from '../components/setting/UserInfoCard';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 
 export default function SettingScreen({ navigation }) {
   const [user, setUser] = useState({});

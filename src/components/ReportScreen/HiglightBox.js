@@ -41,7 +41,7 @@ const customStyles = StyleSheet.create({
   },
   rankBackground: {
     borderRadius: 100,
-    backgroundColor: '#918d8e',
+    backgroundColor: '#5c5b5c',
   },
   textHighlight: {
     fontSize: 20,

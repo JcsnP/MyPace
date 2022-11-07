@@ -65,7 +65,7 @@ const BottomTabsMain = () => {
               tabBarStyle: {
                 backgroundColor: '#1B1B1B',
                 borderTopColor: '#000000',
-                borderTopWidth: 1
+                borderTopWidth: 1,
               },
             }}
           >
