@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView, Text, View } from 'react-native';
 import { Pedometer } from 'expo-sensors';
-import CircularProgress from "react-native-circular-progress-indicator";
+import CircularProgress, { ProgressRef } from "react-native-circular-progress-indicator";
 import { Dimensions } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -67,17 +67,17 @@ export default function HomeScreen(props) {
         contentContainerStyle={{flexGrow: 1}}
       >
       <View style={{display: 'flex', alignItems: 'center'}}>
-        <CircularProgress
-           value={currentStepCount}
+      <CircularProgress
+           value={isNaN(pastStepCount) ? 0 : pastStepCount}
            maxValue={goal}
            radius={windowWidth / 2.5}
            textColor={"#ecf0f1"}
            activeStrokeColor={"#FF3654"}
-           inActiveStrokeColor={"#561E2C"}
-           inActiveStrokeOpacity={0.5}
+           inActiveStrokeColor={pastStepCount > goal ? "#FF3654" : "#561E2C"}
+           inActiveStrokeOpacity={pastStepCount > goal ? 1 : 0.5}
            inActiveStrokeWidth={40}
            activeStrokeWidth={40}
-           title={`OF ${goal.toLocaleString()}`}
+           title={pastStepCount > goal ? 'completed' : `OF ${goal.toLocaleString()}`}
            titleColor={"#A9A9A9"}
            titleStyle={{ fontWeight: "bold", fontSize: 30, textTransform: "uppercase" }}
          />
