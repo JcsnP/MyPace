@@ -36,7 +36,7 @@ const customStyles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-around',
     marginVertical: 4,
-    height: '45%',
+    height: '30%',
     width: '100%'
   },
   rankBackground: {

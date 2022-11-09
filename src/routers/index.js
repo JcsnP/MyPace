@@ -11,8 +11,9 @@ import InformationScreen from '../screens/InformationScreen';
 const Stack = createStackNavigator();
 
 export default function() {
+  {/* remove 'gestureEnabled: false' in screenOption for enable user go to previous screen */}
   return(
-    <Stack.Navigator screenOptions={{headerShown: false,  gestureEnabled: false}} >
+    <Stack.Navigator screenOptions={{headerShown: false}} >
       <Stack.Screen name='Splash' component={SplashScreen} />
       <Stack.Screen name='Login' component={LoginScreen} />
       <Stack.Screen name='Register' component={RegisterScreen} />
