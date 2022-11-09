@@ -5,7 +5,7 @@ import { View, Text, ScrollView } from "react-native";
 import styles from '../styles';
 
 // import components
-import UserCard from "../components/leaderboard/UserCard";
+import UserCard from "../components/Leaderboard/UserCard";
 
 // import mockup data
 import users from "../data/users";

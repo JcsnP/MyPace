@@ -80,11 +80,15 @@ export default function HomeScreen(props) {
            title={pastStepCount > goal ? 'completed' : `OF ${goal.toLocaleString()}`}
            titleColor={"#A9A9A9"}
            titleStyle={{ fontWeight: "bold", fontSize: 30, textTransform: "uppercase" }}
+           progressFormatter={(value) => {
+            'worklet';
+            return value.toLocaleString();
+          }}
          />
         <ChangeGoal />
         
         { /* Statistics */}
-        <ActivityCard />
+        <ActivityCard paces={pastStepCount} />
         {/* ActivityCard */}
         <SatisticsCard />
         
