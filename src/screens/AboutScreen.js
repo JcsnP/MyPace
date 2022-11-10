@@ -12,7 +12,7 @@ export default function AboutScreen() {
         <Text style={{color: '#FFF', fontWeight: '700', marginBottom: 20}}>
           แอปนี้กำลังอยู่ในขั้นตอนการพัฒนา และในขณะนี้แอปมีปัญหาไม่สามารถใช้งานเซ็นเซอร์ได้การนับจำนวนการนับได้บน Android
           (ไงล่ะ รู้สึกพิเศษมั้ยล่ะ คิคิ) ส่วนหน้านี้ก็กะจะเอาไว้ใส่รายละเอียดต่างๆ ที่เกี่ยวข้องกับแอปตัวนี้ ทั้งเรื่องที่มา รายชื่อผู้พัฒนา จุดประสงค์ของแอป
-          แล้วก็อะไรก็ได้ที่ผู้พัฒนาอยากใส่ลงไป
+          แล้วก็อะไรก็ได้ที่ผู้พัฒนาอยากใส่ลงไป อิอิ
         </Text>
         <Text style={{color: '#FFF', fontWeight: '700', marginBottom: 20, display: 'flex', flexDirection: 'row'}}>
           <View style={{backgroundColor: 'yellow', padding: 3, borderRadius: 7, borderWidth: 2}}>

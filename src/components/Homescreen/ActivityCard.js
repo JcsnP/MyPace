@@ -30,7 +30,7 @@ export default function ActivityCard(activity) {
           <Text style={{color: '#fff', fontWeight: '800', fontSize: 15}}>KM</Text>
         </View>
         <View style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-          <Text style={{color: '#fff', fontWeight: '800', fontSize: 20}}>{isNaN(kcal) ? 0 : kcal}</Text>
+          <Text style={{color: '#fff', fontWeight: '800', fontSize: 20}}>{isNaN(kcal) ? 0 : kcal.toFixed(2)}</Text>
           <Text style={{color: '#fff', fontWeight: '800', fontSize: 15}}>KCAL</Text>
         </View>
       </View>
