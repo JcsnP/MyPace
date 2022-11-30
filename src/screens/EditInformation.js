@@ -11,11 +11,7 @@ import axios from "axios";
 // import token context
 import TokenContext from "../contexts/TokenContext";
 
-export default function EditInformation() {
-  const [user, setUser] = useState({});
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+export default function EditInformation({navigation}) {
   const [ dob, setDOB ] = useState('');
   const [ height, setHeight ] = useState(0);
   const [ weight, setWeight ] = useState(0);
@@ -74,7 +70,10 @@ export default function EditInformation() {
       }
     })
     .then(res => {
-      setUser(res.data.user);
+      setDOB(res.data.user.information.dob);
+      setHeight(res.data.user.information.height);
+      setWeight(res.data.user.information.weight);
+      setGender(res.data.user.information.gender);
       setIsLoading(false);
     })
     .catch(err => {
@@ -82,9 +81,38 @@ export default function EditInformation() {
     })
   }, []);
 
+  // create an account
+  const updateUser = () => {
+    axios.put(`${MYPACE_API}/users/me`,
+      {
+        information: {
+          dob: dob,
+          height: height,
+          weight: weight,
+          gender: gender
+        }
+      },
+      {
+        headers: {
+          "Authorization" : `Bearer ${token}`
+        }
+      }
+    )
+    .then((response) => {
+      if(response.data.status === 'ok') {
+        navigation.navigate('MainSettingScreen');
+      }
+      if(response.data.status === 'error') {
+        alert(response.data.message.toUpperCase());
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  }
+
   return(
     <SafeAreaView style={styles.container}>
-      <Text style={styles.settingTitle}>Edit Information</Text>
       {
         isLoading && (
           <ActivityIndicator />
@@ -95,32 +123,10 @@ export default function EditInformation() {
         !isLoading && (
           <ScrollView showsVerticalScrollIndicator={false}>
             <View style={{display: 'flex', justifyContent: 'flex-start', height: '100%'}}>
-              <TextInput 
-                style={styles.textInput}
-                onChangeText={setUsername}
-                value={user.username}
-                autoCapitalize = 'none'
-                placeholderTextColor="#A9A9A9"
-                placeholder="Username" />
-              <TextInput 
-                style={styles.textInput}
-                onChangeText={setEmail}
-                value={user.email}
-                autoCapitalize = 'none'
-                placeholderTextColor="#A9A9A9"
-                placeholder="Email" />
-              <TextInput 
-                style={styles.textInput}
-                onChangeText={setPassword}
-                value={password}
-                autoCapitalize = 'none'
-                placeholderTextColor="#A9A9A9"
-                secureTextEntry={true}
-                placeholder="New Password" />
               <View style={customStyle.formGroup}>
                 <Text style={customStyle.label}>Date of Births</Text>
                 <TouchableOpacity style={customStyle.dobInput} onPress={() => showMode('date')}>
-                  <Text style={customStyle.dobInputText}>{(!dob) ? 'Date of Birth' : 'Confirm'}</Text>
+                  <Text style={customStyle.dobInputText}>{(dob) ? dob : null}</Text>
                 </TouchableOpacity>
                 {show && (
                   <DateTimePicker
@@ -140,7 +146,7 @@ export default function EditInformation() {
                 <TextInput
                   style={styles.textInput}
                   onChangeText={setWeight}
-                  value={String(user.information.weight)}
+                  value={String(weight)}
                 />
               </View>
 
@@ -149,7 +155,7 @@ export default function EditInformation() {
                 <TextInput
                   style={styles.textInput}
                   onChangeText={setHeight}
-                  value={String(user.information.height)}
+                  value={String(height)}
                 />
               </View>
 
@@ -157,7 +163,17 @@ export default function EditInformation() {
               <View style={customStyle.formGroup}>
                 <Text style={customStyle.label}>Gender</Text>
                 <TouchableOpacity onPress={openGender} style={customStyle.dobInput}>
-                  <Text style={customStyle.dobInputText}>{user.information.gender.charAt(0).toUpperCase() + user.information.gender.slice(1)}</Text>
+                  <Text style={customStyle.dobInputText}>{ (!gender) ? 'Select Gender' : gender.charAt(0).toUpperCase() + gender.slice(1) }</Text>
+                </TouchableOpacity>
+              </View>
+
+              { /* update button */}
+              <View style={customStyle.formGroup}>
+                <TouchableOpacity
+                  onPress={updateUser}
+                  style={styles.loginButton}
+                >
+                  <Text style={styles.buttonLabel}>UPDATE</Text>
                 </TouchableOpacity>
               </View>
             </View>

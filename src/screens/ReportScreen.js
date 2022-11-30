@@ -13,7 +13,6 @@ import PacesBox from "../components/ReportScreen/PacesBox";
 import HiglightBox from "../components/ReportScreen/HiglightBox";
 
 // import TokenContext
-// import { TokenContext } from "../navigations/BottomTab";
 import TokenContext from "../contexts/TokenContext";
 
 export default function ReportScreen() {
