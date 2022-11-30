@@ -14,7 +14,6 @@ import SettingCard from '../components/setting/SettingCard';
 import LogoutButton from '../components/setting/LogoutButton';
 import UserInfoCard from '../components/setting/UserInfoCard';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
 
 export default function SettingScreen({ navigation }) {
   const [user, setUser] = useState({});
