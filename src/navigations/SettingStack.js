@@ -5,6 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import AboutScreen from "../screens/AboutScreen";
 import SettingScreen from "../screens/SettingScreen";
 import BadgesScreen from "../screens/BadgesScreen";
+import EditInformation from "../screens/EditInformation";
 
 const Stack = createStackNavigator();
 
@@ -45,6 +46,14 @@ const SettingStack = () => {
         options={{
           headerLeftLabelVisible: false,
           title: 'Your Badges'
+        }}
+      />
+      <Stack.Screen
+        name="EditInformationScreen"
+        component={EditInformation}
+        options={{
+          headerLeftLabelVisible: false,
+          title: 'Edit Information'
         }}
       />
     </Stack.Navigator>

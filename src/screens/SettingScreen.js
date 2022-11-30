@@ -49,7 +49,7 @@ export default function SettingScreen({ navigation }) {
       {
         useCard()
       }
-      <SettingCard label='Edit Profile' icon='account-edit' onPress={() => {alert('edit profile')}} />
+      <SettingCard label='Edit Profile' icon='account-edit' onPress={() => {navigation.navigate('EditInformationScreen')}} />
       <SettingCard label='Badges' icon='trophy-award' onPress={() => {navigation.navigate('BadgesScreen')}} />
       <SettingCard label='About' icon='progress-question' onPress={() => {navigation.navigate('AboutScreen')}} />
       <LogoutButton />
