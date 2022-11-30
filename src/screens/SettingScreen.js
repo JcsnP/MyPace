@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useCallback, useEffect, useState } from 'react';
-import { View, Text, Modal, Pressable, Alert, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useCallback, useEffect, useState, useContext } from 'react';
+import { View, Text, Modal, Pressable, Alert, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useIsFocused } from '@react-navigation/native';
 
@@ -14,21 +14,41 @@ import SettingCard from '../components/setting/SettingCard';
 import LogoutButton from '../components/setting/LogoutButton';
 import UserInfoCard from '../components/setting/UserInfoCard';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+
+// import token context
+import TokenContext from "../contexts/TokenContext";
 
 export default function SettingScreen({ navigation }) {
   const [user, setUser] = useState({});
-  const [token, setToken] = useState('');
   const [isLoaded, setIsLoaded] = useState(false);
 
+  const token = useContext(TokenContext);
+
+  /*
   async function fetchUserDetails() {
     setUser(JSON.parse(await AsyncStorage.getItem('UserDetails')));
     setIsLoaded(true);
   }
+  */
 
-  // const isFocused = useIsFocused();
-  useEffect(() => { 
-    fetchUserDetails();
-  }, [isLoaded])
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    if(isFocused) {
+      axios.get(`${MYPACE_API}/users/me`, {
+      headers: {
+        "Authorization" : `Bearer ${token}`
+      }
+    })
+    .then(res => {
+      setUser(res.data.user);
+      setIsLoaded(true);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+    }
+  }, [isFocused])
 
   const useCard = () => {
     if(isLoaded) {
@@ -36,7 +56,7 @@ export default function SettingScreen({ navigation }) {
     } else {
       return(
         <View style={customStyles.card}>
-          <Text>Information loading...</Text>
+          <ActivityIndicator />
         </View>
       );
     }

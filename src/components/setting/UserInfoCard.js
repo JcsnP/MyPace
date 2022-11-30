@@ -16,13 +16,13 @@ export default function UserInfoCard({ user }) {
           <Text style={styles.key}>Age</Text>
           <Text style={styles.value}>{new Date().getFullYear() - new Date(user.information.dob).getFullYear()}</Text>
         </View>
+         <View style={styles.data}>
+          <Text style={styles.key}>Weight</Text>
+          <Text style={styles.value}>{user.information.weight}</Text>
+        </View>
         <View style={styles.data}>
           <Text style={styles.key}>Height</Text>
           <Text style={styles.value}>{user.information.height}</Text>
-        </View>
-        <View style={styles.data}>
-          <Text style={styles.key}>Weight</Text>
-          <Text style={styles.value}>{user.information.weight}</Text>
         </View>
         <View style={styles.data}>
           <Text style={styles.key}>Gender</Text>
