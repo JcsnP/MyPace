@@ -1,23 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { ScrollView, Text, View } from 'react-native';
 import { Pedometer } from 'expo-sensors';
 import CircularProgress, { ProgressRef } from "react-native-circular-progress-indicator";
 import { Dimensions } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { MYPACE_API } from '@env';
+
 // import style
 import styles from '../styles';
+// import token context
+import TokenContext from "../contexts/TokenContext";
 
 // import components
 import ChangeGoal from "../components/Homescreen/ChangeGoal";
 import ActivityCard from "../components/Homescreen/ActivityCard";
 import SatisticsCard from "../components/Homescreen/StatisticsCard";
+import axios from "axios";
 
 export default function HomeScreen(props) {
+  const [user, setUser] = useState({});
   const [isPedometerAvailable, setIsPedometerAvailable] = useState('checking');
   const [pastStepCount, setPastStepCount] = useState(0);
   const [currentStepCount, setCurrentStepCount] = useState(0);
   const [goal, setGoal] = useState(5500);
+
+  const token = useContext(TokenContext);
 
   let _subscription;
   const windowWidth = Dimensions.get('window').width;
@@ -54,9 +62,23 @@ export default function HomeScreen(props) {
     _subscription = null;
   };
 
+  // custom method
+  const getStatistics = async() => {
+    try {
+      const res = await axios.get(`${MYPACE_API}/users/paces`, {
+        headers: {
+          "Authorization" : `Bearer ${token}`
+        }
+      });
+      // setUser(await res.data[0]);
+    } catch(err) {
+      console.log(err);
+    }
+  }
 
   useEffect(()=>{
     _subscribe();
+    getStatistics();
     return ()=> _unsubscribe();
   },[])
 
@@ -91,6 +113,7 @@ export default function HomeScreen(props) {
         <ActivityCard paces={pastStepCount} />
         {/* ActivityCard */}
         <SatisticsCard />
+        
         
 
         </View>
