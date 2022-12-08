@@ -4,14 +4,14 @@ import { View, Text, StyleSheet } from "react-native";
 
 import { MYPACE_API } from "@env";
 
-export default function HiglightBox() {
+export default function HiglightBox({weekpaces}) {
   return(
     <>
       <View style={customStyles.card}>
         <Text style={customStyles.textHighlight}>Highlight</Text>
         <Text style={{fontSize:15,color:'#FFFFFF',fontWeight:'bold',marginBottom:5,paddingTop:3}}>Your total number of steps walked this week.</Text>
         <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-          <Text style={{color: '#fff', fontWeight: '800', fontSize: 20,}}>15,000</Text>
+          <Text style={{color: '#fff', fontWeight: '800', fontSize: 20,}}>{weekpaces.toLocaleString()}</Text>
           <Text style={{color: '#fff', fontWeight: '800', fontSize: 17}}> Paces</Text>
         </View>
         <View style={customStyles.rankBackground}>
