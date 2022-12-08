@@ -28,7 +28,7 @@ export default function ReportScreen() {
       }
     })
     .then((response) => {
-      setPaces(response.data[0]);
+      setPaces(response.data.history);
       setIsLoaded(true);
     })
     .catch((error) => {
@@ -36,7 +36,7 @@ export default function ReportScreen() {
     })
   }, [isLoaded])
 
-  if(paces.history != 0) {
+  if(paces.history !== 0) {
     return(
       <View style={styles.container}>
         <Text style={styles.title}>Report</Text>
@@ -52,7 +52,7 @@ export default function ReportScreen() {
           }
           {
             isLoaded && (
-              paces.history.map((item, key) => {
+              paces.map((item, key) => {
                 return(
                   <PacesBox item={item} key={key} />
                 );
