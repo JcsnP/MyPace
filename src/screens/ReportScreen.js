@@ -16,7 +16,8 @@ import HiglightBox from "../components/ReportScreen/HiglightBox";
 import TokenContext from "../contexts/TokenContext";
 
 export default function ReportScreen() {
-  const [paces, setPaces] = useState({});
+  const [paces, setPaces] = useState([]);
+  const [weekpaces, setWeekPaces] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
   
   const token = useContext(TokenContext);
@@ -28,13 +29,31 @@ export default function ReportScreen() {
       }
     })
     .then((response) => {
-      setPaces(response.data.history);
-      setIsLoaded(true);
+      if(response.data.status === 200) {
+        setPaces(response.data.history);
+        setIsLoaded(true);
+      }
     })
     .catch((error) => {
       console.log(error.message);
     })
   }, [isLoaded])
+
+  useEffect(() => {
+    axios.get(`${MYPACE_API}/users/paces/life`, {
+      headers: {
+        "Authorization" : `Bearer ${token}`
+      }
+    })
+    .then((response) => {
+      if(response.data.status === 200) {
+        setWeekPaces(response.data.all);
+      }
+    })
+    .catch((error) => {
+      console.log(error.message);
+    })
+  } , [isLoaded]);
 
   if(paces.history !== 0) {
     return(
@@ -47,7 +66,7 @@ export default function ReportScreen() {
           { /* ค่อยเอาเวลามาใส่ระบบคำนวณการเดินเฉลี่ย */ }
           {
             isLoaded && (
-              <HiglightBox />
+              <HiglightBox weekpaces={weekpaces} />
             )
           }
           {
