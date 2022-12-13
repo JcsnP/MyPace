@@ -28,7 +28,8 @@ export default function InformationScreen({ route, navigation }) {
     setDate(currentDate);
 
     let tempDate= new Date(currentDate);
-    let fDate = tempDate.getDate() + '/' + (tempDate.getMonth() + 1) + '/' + tempDate.getFullYear();
+    // MM/DD/YYY
+    let fDate = + (tempDate.getMonth() + 1) + '/' + tempDate.getDate() + '/' + tempDate.getFullYear();
     setDOB(fDate);
 
     console.log(fDate);
@@ -74,7 +75,8 @@ export default function InformationScreen({ route, navigation }) {
         height: height,
         weight: weight,
         gender: gender
-      }
+      },
+      badges: []
     })
     .then((response) => {
       if(response.data.status === 'ok') {

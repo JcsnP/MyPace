@@ -30,7 +30,8 @@ export default function EditInformation({navigation}) {
     setDate(currentDate);
 
     let tempDate= new Date(currentDate);
-    let fDate = tempDate.getDate() + '/' + (tempDate.getMonth() + 1) + '/' + tempDate.getFullYear();
+    // MM/DD/YYYY
+    let fDate = + (tempDate.getMonth() + 1) + '/' + tempDate.getDate() + '/' + tempDate.getFullYear();
     setDOB(fDate);
 
     console.log(fDate);
