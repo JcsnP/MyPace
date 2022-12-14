@@ -4,6 +4,9 @@ import { Pedometer } from 'expo-sensors';
 import CircularProgress, { ProgressRef } from "react-native-circular-progress-indicator";
 import { Dimensions } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useIsFocused } from '@react-navigation/native';
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { MYPACE_API } from '@env';
 
@@ -16,9 +19,8 @@ import TokenContext from "../contexts/TokenContext";
 import ChangeGoal from "../components/Homescreen/ChangeGoal";
 import ActivityCard from "../components/Homescreen/ActivityCard";
 import SatisticsCard from "../components/Homescreen/StatisticsCard";
-import axios from "axios";
 
-export default function HomeScreen(props) {
+export default function HomeScreen() {
   const [user, setUser] = useState({});
   const [isPedometerAvailable, setIsPedometerAvailable] = useState('checking');
   const [pastStepCount, setPastStepCount] = useState(0);
@@ -76,11 +78,25 @@ export default function HomeScreen(props) {
     }
   }
 
+  const isFocused = useIsFocused();
   useEffect(()=>{
     _subscribe();
     getStatistics();
+
+    if(isFocused) {
+      const fetchGoal = async() => {
+        try {
+          const new_goal = await AsyncStorage.getItem('goal');
+          setGoal(new_goal);
+        } catch(error) {
+          console.log(error);
+        }
+      }
+      fetchGoal();
+    }
+
     return ()=> _unsubscribe();
-  },[])
+  },[isFocused, goal])
 
   return(
     <SafeAreaView style={styles.container}>
