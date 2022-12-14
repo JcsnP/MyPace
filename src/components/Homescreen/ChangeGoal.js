@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text, TouchableOpacity, Modal, TextInput, Pressable, Alert  } from "react-native";
 
-export default function ChangeGoal() {
+export default function ChangeGoal({navigation}) {
   const [goal, setGoal] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -43,7 +43,7 @@ export default function ChangeGoal() {
         >
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <Text style={styles.modalText}>Set your Goal</Text>
+              <Text style={styles.modalText}>Change your Goal</Text>
               <TextInput
                 placeholder="9,999 paces !!!"
                 placeholderTextColor="#999"
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   },
   modalView: {
     width: '70%',
-    height: '25%',
+    height: '29%',
     margin: 20,
     backgroundColor: "#343436",
     borderRadius: 20,
