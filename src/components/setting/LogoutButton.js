@@ -10,6 +10,7 @@ export default function LogoutButton() {
     try {
       await AsyncStorage.removeItem('@Token');
       await AsyncStorage.removeItem('UserDetails');
+      await AsyncStorage.removeItem('goal');
       console.log('logout');
       { /* เปลี่ยนจาก navigate เป็น replace เพราะไม่ต้องการให้ user สามารถกลับไปหน้า profile หลังจาก logoutก */ }
       navigation.replace('Splash');
