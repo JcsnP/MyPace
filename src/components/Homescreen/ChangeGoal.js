@@ -13,6 +13,11 @@ export default function ChangeGoal() {
         await AsyncStorage.setItem('goal', 0);
       }
 
+      if(goal === 0) {
+        Alert.alert('Invalid Value');
+        return;
+      }
+
       // ดักไว้ เพื่อผู้ใช้กวนตีนใส่ค่าที่น้อยกว่า 0
       if(goal > 0) {
         await AsyncStorage.setItem('goal', goal);
