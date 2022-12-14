@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useState, useContext } from 'react';
 import { View, Text, Modal, Pressable, Alert, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useIsFocused } from '@react-navigation/native';
+import axios from 'axios';
 
 import { MYPACE_API } from '@env';
 
@@ -14,7 +15,6 @@ import SettingCard from '../components/setting/SettingCard';
 import LogoutButton from '../components/setting/LogoutButton';
 import UserInfoCard from '../components/setting/UserInfoCard';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
 
 // import token context
 import TokenContext from "../contexts/TokenContext";
