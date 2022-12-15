@@ -86,8 +86,10 @@ export default function HomeScreen() {
     if(isFocused) {
       const fetchGoal = async() => {
         try {
-          const new_goal = await AsyncStorage.getItem('goal');
-          setGoal(new_goal);
+          if(await AsyncStorage.getItem('goal')) {
+            const new_goal = await AsyncStorage.getItem('goal');
+            setGoal(new_goal);
+          }
         } catch(error) {
           console.log(error);
         }
