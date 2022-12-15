@@ -22,7 +22,6 @@ import TokenContext from "../contexts/TokenContext";
 export default function SettingScreen({ navigation }) {
   const [user, setUser] = useState({});
   const [isLoaded, setIsLoaded] = useState(false);
-
   const token = useContext(TokenContext);
 
   /*
@@ -35,18 +34,19 @@ export default function SettingScreen({ navigation }) {
   const isFocused = useIsFocused();
   useEffect(() => {
     if(isFocused) {
-      axios.get(`${MYPACE_API}/users/me`, {
-      headers: {
-        "Authorization" : `Bearer ${token}`
+      const fetchUser = async() => {
+        const response = await axios.get(`${MYPACE_API}/users/me`, {
+          headers: {
+            "Authorization" : `Bearer ${token}`
+          }
+        });
+        if(response.data.status === 200) {
+          setUser(response.data.user);
+          setIsLoaded(true);
+        }
       }
-    })
-    .then(res => {
-      setUser(res.data.user);
-      setIsLoaded(true);
-    })
-    .catch(err => {
-      console.log(err);
-    })
+
+      fetchUser();
     }
   }, [isFocused])
 

@@ -100,10 +100,10 @@ export default function EditInformation({navigation}) {
       }
     )
     .then((response) => {
-      if(response.data.status === 'ok') {
+      if(response.data.status === 200) {
         navigation.navigate('MainSettingScreen');
       }
-      if(response.data.status === 'error') {
+      if(response.data.status === 204) {
         alert(response.data.message.toUpperCase());
       }
     })

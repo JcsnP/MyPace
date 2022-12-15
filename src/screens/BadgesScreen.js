@@ -61,7 +61,7 @@ export default function BadgesScreen() {
           }}
         />
         <Text style={customStyles.title}>{badge.title}</Text>
-        <Text style={customStyles.title}>ยังปลดล็อก</Text>
+        <Text style={customStyles.title}>ยังไม่ปลดล็อก</Text>
       </View>
     )
   }
@@ -103,18 +103,18 @@ const customStyles = StyleSheet.create({
 
 /*
 {
-            allBadges.map((badge, key) => {
-              return(
-                <View style={customStyles.badgeBox} key={key}>
-                  <Image
-                    style={customStyles.badge}
-                    source={{
-                      uri: badge.picture
-                    }}
-                  />
-                  <Text style={customStyles.title}>{badge.title}</Text>
-                </View>
-              );
-            })
-          }
+  allBadges.map((badge, key) => {
+    return(
+      <View style={customStyles.badgeBox} key={key}>
+        <Image
+          style={customStyles.badge}
+          source={{
+            uri: badge.picture
+          }}
+        />
+        <Text style={customStyles.title}>{badge.title}</Text>
+      </View>
+    );
+  })
+}
 */
