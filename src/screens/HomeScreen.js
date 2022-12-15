@@ -125,14 +125,15 @@ export default function HomeScreen() {
             return value.toLocaleString();
           }}
          />
+
+         {/* Chang Goal */}
         <ChangeGoal />
-        
         { /* Statistics */}
         <ActivityCard paces={pastStepCount} />
         {/* ActivityCard */}
         <SatisticsCard />
-        
-        
+
+
 
         </View>
       </ScrollView>

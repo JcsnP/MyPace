@@ -41,9 +41,13 @@ export default function ChangeGoal({navigation}) {
           setModalVisible(!modalVisible);
         }}
         >
-          <View style={styles.centeredView}>
+          <TouchableOpacity
+            style={styles.centeredView}
+            activeOpacity={1}
+            onPressOut={() => {setModalVisible(false)}}
+          >
             <View style={styles.modalView}>
-              <Text style={styles.modalText}>Change your Goal</Text>
+              <Text style={styles.modalText}>Change my Goal</Text>
               <TextInput
                 placeholder="9,999 paces !!!"
                 placeholderTextColor="#999"
@@ -52,20 +56,20 @@ export default function ChangeGoal({navigation}) {
                 onChangeText={setGoal}
                 style={styles.textInput}
               />
-              <Pressable
+              <TouchableOpacity
                 style={[styles.button, styles.buttonClose]}
                 onPress={() => setUserGoal()}
               >
                 <Text style={styles.textStyle}>Apply</Text>
-              </Pressable>
+              </TouchableOpacity>
             </View>
-          </View>
+          </TouchableOpacity>
         </Modal>
-      <TouchableOpacity 
+      <TouchableOpacity
         style={{borderWidth: 1, borderRadius: 7, paddingVertical: 10, backgroundColor: '#343436', borderColor: '#3D3D3D', width: '80%', alignSelf: 'center', marginVertical: 20, shadowColor: '#111', shadowOpacity: 1, shadowOffset: {width: 0, height: 4}}}
         onPress={() => {setModalVisible(true)}}
         >
-        <Text style={{color: '#F81250', textTransform: 'uppercase', fontWeight: '800', fontSize: 25, textAlign: 'center'}}>Change your goal</Text>
+        <Text style={{color: '#F81250', textTransform: 'uppercase', fontWeight: '800', fontSize: 25, textAlign: 'center'}}>Change my goal</Text>
       </TouchableOpacity>
     </>
   );
@@ -79,7 +83,7 @@ const styles = StyleSheet.create({
   },
   modalView: {
     width: '70%',
-    height: '29%',
+    height: '35%',
     margin: 20,
     backgroundColor: "#343436",
     borderRadius: 20,
@@ -96,7 +100,7 @@ const styles = StyleSheet.create({
   },
   button: {
     borderRadius: 7,
-    padding: 10,
+    padding: 12,
     elevation: 2,
     width: '100%'
   },
@@ -107,7 +111,8 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
-    textTransform: 'uppercase'
+    textTransform: 'uppercase',
+    fontSize: 20
   },
   modalText: {
     textAlign: "center",
@@ -117,7 +122,8 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase'
   },
   textInput: {
-    borderWidth: 1,
+    borderWidth: 2,
+    borderColor: '#222',
     borderRadius: 7,
     width: '100%',
     marginVertical: 15,
@@ -125,6 +131,7 @@ const styles = StyleSheet.create({
     padding: 10,
     color: '#FFF',
     fontWeight: 'bold',
-    textAlign: 'center'
+    textAlign: 'center',
+    fontSize: 25
   }
 });
