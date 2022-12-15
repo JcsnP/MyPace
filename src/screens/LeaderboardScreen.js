@@ -16,15 +16,17 @@ export default function LeaderboardScreen() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [leaderboard, setLeaderboard] = useState([]);
   useEffect(() => {
-    const fetchLeaderboard = async() => {
-      const response = await axios.get(`${MYPACE_API}/leaderboard`);
+    axios.get(`${MYPACE_API}/leaderboard`)
+    .then((response) => {
       if(response.data.status === 200) {
-        setLeaderboard(response.data.result);
+        setLeaderboard(response.data.userPaces);
         setIsLoaded(true);
       }
-    }
-    fetchLeaderboard();
-  }, []);
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  }, [isLoaded]);
   return(
     <View style={styles.container}>
       <Text style={styles.title}>Leaderboard</Text>
@@ -38,7 +40,7 @@ export default function LeaderboardScreen() {
         {
           isLoaded && (
             leaderboard.map((user, key) => (
-              <UserCard name={user.userId} paces={user.details.paces} key={key} />
+              <UserCard name={user.user[0].username} paces={user.details.paces} key={key} />
             ))
           )
         }
@@ -46,3 +48,13 @@ export default function LeaderboardScreen() {
     </View>
   );
 }
+
+/*
+{
+          isLoaded && (
+            leaderboard.map((user, key) => (
+              <UserCard name={user.user} paces={user.details.paces} key={key} />
+            ))
+          )
+        }
+*/

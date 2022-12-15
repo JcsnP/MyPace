@@ -5,7 +5,7 @@ export default function PacesBox({item}) {
   if(!!item) {
     return(
       <View style={styles.card}>
-        <Text style={styles.date}>{new Date(item.date).toLocaleDateString()}</Text>
+        <Text style={styles.date}>{item.date}</Text>
         <View style={styles.flexContainer}>
           <View>
             { /* เดิมทีมีข้อมูลที่ผิดพลาด ทำให้แอปไม่แสดงคอมม่าในตัวเลขบางชุด เลยลองบังคับให้ทำการแปลงข้อมูลเป้นตัวเลข */ }
