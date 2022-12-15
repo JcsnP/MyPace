@@ -16,7 +16,6 @@ import styles from '../styles';
 import TokenContext from "../contexts/TokenContext";
 
 // import components
-import ChangeGoal from "../components/Homescreen/ChangeGoal";
 import ActivityCard from "../components/Homescreen/ActivityCard";
 import SatisticsCard from "../components/Homescreen/StatisticsCard";
 
@@ -51,7 +50,8 @@ export default function HomeScreen() {
 
     const end = new Date();
     const start = new Date();
-    start.setDate(end.getDate() - 1);
+    // start.setDate(end.getDate() - 1);  // tomorrow --> today
+    start.setHours(0,0,0,0);              // only today
     Pedometer.getStepCountAsync(start, end).then(
       result => {
         setPastStepCount(result.steps);
@@ -101,6 +101,8 @@ export default function HomeScreen() {
         }
       }
       fetchGoal();
+
+      // console.log(isPedometerAvailable, pastStepCount, currentStepCount);
     }
 
     return ()=> _unsubscribe();
@@ -110,6 +112,12 @@ export default function HomeScreen() {
     try {
       if(goal === 0) {
         Alert.alert('Invalid Value');
+        return;
+      }
+
+      // ถ้าผู้ใช้กรอกเป้าหมายน้อยกว่าจำนวนก้าวที่เดินในปัจจุบัน
+      if(pastStepCount >= temp_goal) {
+        Alert.alert('You must enter a goal greater than the current step count.');
         return;
       }
 
@@ -126,6 +134,15 @@ export default function HomeScreen() {
     }
   }
 
+  const ChangeGoal = () => (
+    <TouchableOpacity
+      style={{borderWidth: 1, borderRadius: 7, paddingVertical: 10, backgroundColor: '#343436', borderColor: '#3D3D3D', width: '80%', alignSelf: 'center', marginVertical: 20, shadowColor: '#111', shadowOpacity: 1, shadowOffset: {width: 0, height: 4}}}
+      onPress={() => {setModalVisible(true)}}
+      >
+      <Text style={{color: '#F81250', textTransform: 'uppercase', fontWeight: '800', fontSize: 25, textAlign: 'center'}}>Change my goal</Text>
+    </TouchableOpacity>
+  );
+
   return(
     <SafeAreaView style={styles.container}>
       <Modal
@@ -133,14 +150,19 @@ export default function HomeScreen() {
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert('modal has been closed');
           setModalVisible(!modalVisible);
         }}
         >
           <TouchableOpacity
             style={modalStyle.centeredView}
             activeOpacity={1}
-            onPressOut={() => {Alert.alert('You must to set your goal.')}}
+            onPressOut={async() => {
+              if(await AsyncStorage.getItem('goal') === null) {
+                Alert.alert('You must to set your goal.')
+              } else {
+                setModalVisible(false);
+              }
+            }}
           >
             <View style={modalStyle.modalView}>
               <Text style={modalStyle.modalText}>Set my Goal</Text>
@@ -185,8 +207,9 @@ export default function HomeScreen() {
         }}
       />
 
-         {/* Chang Goal */}
+         {/* Change Goal */}
         <ChangeGoal />
+
         { /* Statistics */}
         <ActivityCard paces={pastStepCount} />
         {/* ActivityCard */}
