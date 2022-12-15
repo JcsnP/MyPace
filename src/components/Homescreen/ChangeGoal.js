@@ -2,14 +2,14 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text, TouchableOpacity, Modal, TextInput, Pressable, Alert  } from "react-native";
 
-export default function ChangeGoal({navigation}) {
+export default function ChangeGoal({}) {
   const [goal, setGoal] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
 
   const setUserGoal = async() => {
     try {
       // ถ้าผู้ใช้ยังไม่ได้ตั้งค่าเป้าหมาย สร้างเป้าหมายแล้วกำหนดค่าให้เป็น 0
-      if(!AsyncStorage.getItem('goal')) {
+      if(!(await AsyncStorage.getItem('goal'))) {
         await AsyncStorage.setItem('goal', 0);
       }
 
