@@ -136,10 +136,10 @@ export default function HomeScreen() {
 
   const ChangeGoal = () => (
     <TouchableOpacity
-      style={{borderWidth: 1, borderRadius: 7, paddingVertical: 10, backgroundColor: '#343436', borderColor: '#3D3D3D', width: '80%', alignSelf: 'center', marginVertical: 20, shadowColor: '#111', shadowOpacity: 1, shadowOffset: {width: 0, height: 4}}}
+      style={{borderWidth: 1, borderRadius: 7, paddingVertical: 10, backgroundColor: '#212121', borderColor: '#3D3D3D', width: '80%', alignSelf: 'center', marginVertical: 20, shadowColor: '#111', shadowOpacity: 1, shadowOffset: {width: 0, height: 4}}}
       onPress={() => {setModalVisible(true)}}
       >
-      <Text style={{color: '#F81250', textTransform: 'uppercase', fontWeight: '800', fontSize: 25, textAlign: 'center'}}>Change my goal</Text>
+      <Text style={{color: '#D70040', textTransform: 'uppercase', fontWeight: '800', fontSize: 25, textAlign: 'center'}}>Change my goal</Text>
     </TouchableOpacity>
   );
 
@@ -188,28 +188,27 @@ export default function HomeScreen() {
         contentContainerStyle={{flexGrow: 1}}
       >
       <View style={{display: 'flex', alignItems: 'center'}}>
-      <CircularProgress
-        value={isNaN(pastStepCount) ? 0 : pastStepCount}
-        maxValue={goal}
-        radius={windowWidth / 2.5}
-        textColor={"#ecf0f1"}
-        activeStrokeColor={"#FF3654"}
-        inActiveStrokeColor={pastStepCount > goal ? "#FF3654" : "#561E2C"}
-        inActiveStrokeOpacity={pastStepCount > goal ? 1 : 0.5}
-        inActiveStrokeWidth={40}
-        activeStrokeWidth={40}
-        title={pastStepCount > goal ? 'completed' : `OF ${parseInt(goal).toLocaleString()}`}
-        titleColor={"#A9A9A9"}
-        titleStyle={{ fontWeight: "bold", fontSize: 30, textTransform: "uppercase" }}
-        progressFormatter={(value) => {
-          'worklet';
-          return value.toLocaleString();
-        }}
-      />
+        <CircularProgress
+          value={isNaN(pastStepCount) ? 0 : pastStepCount}
+          maxValue={goal}
+          radius={windowWidth / 2.5}
+          textColor={"#ecf0f1"}
+          activeStrokeColor={"#D70040"}
+          inActiveStrokeColor={pastStepCount > goal ? "#FF3654" : "#561E2C"}
+          inActiveStrokeOpacity={pastStepCount > goal ? 1 : 0.5}
+          inActiveStrokeWidth={40}
+          activeStrokeWidth={40}
+          title={pastStepCount > goal ? 'completed' : `OF ${parseInt(goal).toLocaleString()}`}
+          titleColor={"#D70040"}
+          titleStyle={{ fontWeight: "bold", fontSize: 30, textTransform: "uppercase" }}
+          progressFormatter={(value) => {
+            'worklet';
+            return value.toLocaleString();
+          }}
+        />
 
          {/* Change Goal */}
         <ChangeGoal />
-
         { /* Statistics */}
         <ActivityCard paces={pastStepCount} />
         {/* ActivityCard */}
@@ -281,4 +280,3 @@ const modalStyle = StyleSheet.create({
     fontSize: 25
   }
 });
-

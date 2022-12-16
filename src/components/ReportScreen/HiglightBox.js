@@ -45,7 +45,7 @@ const customStyles = StyleSheet.create({
   },
   textHighlight: {
     fontSize: 20,
-    color:'#F81250',
+    color:'#D70040',
     fontWeight:'800',
     marginBottom:10,
     textTransform: 'uppercase'
@@ -60,7 +60,7 @@ const customStyles = StyleSheet.create({
   },
   currentRank: {
     borderRadius: 100,
-    backgroundColor: '#F81250',
+    backgroundColor: '#D70040',
     width: '50%'
   }
 });

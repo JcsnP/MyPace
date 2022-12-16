@@ -48,7 +48,7 @@ export default function BadgesScreen() {
             }}
           />
           <Text style={customStyles.title}>{badge.title}</Text>
-          <Text style={customStyles.title}>ปลดล็อกแล้ว</Text>
+          <Text style={[customStyles.status, customStyles.unlock]}>ปลดล็อกแล้ว</Text>
         </View>
       )
     }
@@ -61,7 +61,7 @@ export default function BadgesScreen() {
           }}
         />
         <Text style={customStyles.title}>{badge.title}</Text>
-        <Text style={customStyles.title}>ยังไม่ปลดล็อก</Text>
+        <Text style={[customStyles.status, customStyles.lock]}>ยังไม่ปลดล็อก</Text>
       </View>
     )
   }
@@ -75,7 +75,9 @@ export default function BadgesScreen() {
         <View style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around'}}>
           {
             allBadges.map((badge, key) => (
-              checkBadge(badge, key)
+              <View style={customStyles.badgeChild} key={key}>
+                {checkBadge(badge, key)}
+              </View>
             ))
           }
         </View>
@@ -86,19 +88,53 @@ export default function BadgesScreen() {
 
 const customStyles = StyleSheet.create({
   badge: {
-    width: 100,
-    height: 100,
+    width: 110,
+    height: 110,
     alignSelf: 'center',
+    marginBottom: 2
   },
   title: {
     color: '#FFF',
     fontWeight: '700',
+    fontSize: 17,
     textTransform: 'uppercase',
-    textAlign: 'center'
+    textAlign: 'center',
+    marginVertical: 4,
+    height: 45,
+    alignSelf: 'center'
+  },
+  status: {
+    color: '#FFF',
+    fontWeight: '700',
+    fontSize: 15,
+    textTransform: 'uppercase',
+    textAlign: 'center',
+    marginVertical: 2,
   },
   badgeBox: {
-    marginBottom: 20,
+    alignSelf: 'center',
   },
+  badgeChild: {
+    display: 'inline-block',
+    flexGrow: 1,
+    margin: 20,
+    backgroundColor: '#212121',
+    width: 100,
+    borderRadius: 7,
+    padding: 10
+  },
+  unlock: {
+    color: '#CC0000'
+  },
+  lock: {
+    color: '#999'
+  },
+  unlockBox: {
+    backgroundColor: '#FFFF99'
+  },
+  lockBox: {
+    backgroundColor: '#666'
+  }
 });
 
 /*
