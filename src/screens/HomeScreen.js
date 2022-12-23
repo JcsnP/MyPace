@@ -18,6 +18,7 @@ import TokenContext from "../contexts/TokenContext";
 // import components
 import ActivityCard from "../components/Homescreen/ActivityCard";
 import SatisticsCard from "../components/Homescreen/StatisticsCard";
+import ActivityBox from "../components/Homescreen/ActivityBox";
 
 export default function HomeScreen() {
   const [user, setUser] = useState({});
@@ -136,12 +137,24 @@ export default function HomeScreen() {
 
   const ChangeGoal = () => (
     <TouchableOpacity
-      style={{borderWidth: 1, borderRadius: 7, paddingVertical: 10, backgroundColor: '#212121', borderColor: '#3D3D3D', width: '80%', alignSelf: 'center', marginVertical: 20, shadowColor: '#111', shadowOpacity: 1, shadowOffset: {width: 0, height: 4}}}
+      style={{borderWidth: 1, borderRadius: 7, paddingVertical: 10, backgroundColor: '#212121', borderColor: '#3D3D3D', width: '80%', alignSelf: 'center', marginVertical: 20, shadowColor: '#111', shadowOpacity: 1, shadowOffset: {width: 0, height: 2}}}
       onPress={() => {setModalVisible(true)}}
       >
       <Text style={{color: '#D70040', textTransform: 'uppercase', fontWeight: '800', fontSize: 25, textAlign: 'center'}}>Change my goal</Text>
     </TouchableOpacity>
   );
+
+  const findPercentage = (goal, current) => {
+    return (current * 100) / goal;
+  }
+
+  const findBMR = () => {
+    const WEIGHT = 55;
+    const HEIGHT = 173;
+    const AGE = 21;
+    const BMR = 66.5 + (13.76 * WEIGHT) + (5.003 * HEIGHT) - (6.755 * AGE);
+    console.log(BMR);
+  }
 
   return(
     <SafeAreaView style={styles.container}>
@@ -207,13 +220,23 @@ export default function HomeScreen() {
           }}
         />
 
-         {/* Change Goal */}
+        {/* Change Goal */}
         <ChangeGoal />
+
+        {/* ActivityBox */}
+        <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginVertical: 10}}>
+          <ActivityBox icon='percent' value={findPercentage(goal, pastStepCount)} unit='%' message='percentage' />
+          <ActivityBox icon='fire' value={218} unit='kcal' message='calories' />
+          <ActivityBox icon='av-timer' value={1200} unit='hr' message='time of walk' />
+        </View>
+
         { /* Statistics */}
         <ActivityCard paces={pastStepCount} />
+
         {/* ActivityCard */}
         <SatisticsCard />
 
+        {findBMR()}
         </View>
       </ScrollView>
     </SafeAreaView>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, TextInput, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, TextInput, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -70,12 +70,12 @@ export default function LoginScreen({ navigation }) {
           </TouchableOpacity>
 
           { /* register */}
-          <TouchableOpacity style={{marginVertical: 10}}
-            onPress={() => {navigation.navigate('Register')}}
-          >
-            <Text style={{color: '#009AF5', fontWeight: '700', textDecorationLine: 'underline', fontSize: 15, textAlign: 'left'}}>Register an Account</Text>
-          </TouchableOpacity>
+          <View style={{display: 'flex', flexDirection: 'row', marginVertical: 20, justifyContent: 'center'}}>
+            <Text style={{color: '#929292', fontWeight: '700', fontSize: 15, marginRight: 10}}>Don't have an accout ?</Text>
+            <Text style={{color: '#009AF5', fontWeight: '700', fontSize: 15}} onPress={() => {navigation.navigate('Register')}}>Register</Text>
+          </View>
         </View>
+        {/*<Image source={require('../../assets/3d-walking.webp')} style={{width: 270, height: 270, alignSelf: 'center'}} />*/}
       </View>
     </SafeAreaView>
   );

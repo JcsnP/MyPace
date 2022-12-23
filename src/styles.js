@@ -48,12 +48,22 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     padding: 10,
     backgroundColor: "#2563EB",
+    marginVertical: 4
+  },
+  registerButton: {
+    borderWidth: 1,
+    borderRadius: 7,
+    padding: 10,
+    backgroundColor: "#212121",
+    borderColor: '#3D3D3D',
+    marginVertical: 4
   },
   buttonLabel: {
     color: "#FFF",
     fontWeight: "800",
     fontSize: 25,
     textAlign: "center",
+    textTransform: 'uppercase'
   }
 });
 
