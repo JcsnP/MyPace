@@ -9,21 +9,23 @@ import { MYPACE_API } from '@env';
 import styles from '../styles';
 
 export default function SplashScreen({navigation}) {
-  const [advice, setAdvice] = useState('');
-  const [isAdviceLading, setAdviceLoading] = useState(true);
+  const [advice, setAdvice] = useState({});
+  const [isAdvicesLading, setAdvicesLoading] = useState(true);
 
   useEffect(() => {
     const fetchAdvice = async() => {
       try {
         const response = await axios.get(`${MYPACE_API}/advice`);
         setAdvice(response.data.advice)
-        setAdviceLoading(false);
+        setAdvicesLoading(false);
       } catch(error) {
         console.log(error);
       }
     }
 
+    // fetch advices from database
     fetchAdvice();
+
     setTimeout(() => {
       handleGetToken();
     }, 3000);
@@ -33,6 +35,7 @@ export default function SplashScreen({navigation}) {
     let token = await AsyncStorage.getItem('@Token');
     if(!token) {
       navigation.replace('Login');
+      // navigation.replace('Avatar')
     } else {
       navigation.replace('App');
     }
@@ -43,7 +46,7 @@ export default function SplashScreen({navigation}) {
       <View style={{height: '100%', width: '100%', justifyContent: 'center'}}>
         <Text style={customStyle.title}>MYPACE</Text>
         {
-          !isAdviceLading && (
+          !isAdvicesLading && (
             <Text style={customStyle.advice}>"{advice.message}"</Text>
           )
         }

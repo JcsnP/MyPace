@@ -63,8 +63,37 @@ const styles = StyleSheet.create({
     fontWeight: "800",
     fontSize: 25,
     textAlign: "center",
-    textTransform: 'uppercase'
-  }
+    textTransform: 'uppercase',
+    alignSelf: 'center',
+  },
+  searchButton: {
+    borderWidth: 1,
+    borderRadius: 7,
+    height: 50,
+    backgroundColor: "#2563EB",
+  },
+  searchInput: {
+    height: 50,
+    borderWidth: 1,
+    borderColor: "#3D3D3D",
+    borderRadius: 7,
+    backgroundColor: "#212121",
+    padding: 10,
+    color: "#A9A9A9",
+    fontWeight: "700",
+    fontSize: 20,
+    marginRight: 3
+  },
+  searchLabel: {
+    color: "#FFF",
+    fontWeight: "800",
+    fontSize: 20,
+    textAlign: "center",
+    textTransform: 'uppercase',
+    alignSelf: 'center',
+    height: 50,
+    paddingVertical: 12
+  },
 });
 
 module.exports = styles;

@@ -9,7 +9,7 @@ export default function ActivityBox({icon, value, unit, message}) {
     <View style={style.card}>
       <MaterialCommunityIcons name={icon} color={color} size={size} />
       <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
-        <Text style={style.value}>{value}</Text>
+        <Text style={style.value}>{parseFloat(value).toFixed(2)}</Text>
         <Text style={style.unit}>{unit}</Text>
       </View>
       <Text style={style.message}>{message}</Text>
@@ -19,7 +19,7 @@ export default function ActivityBox({icon, value, unit, message}) {
 
 const style = StyleSheet.create({
   card: {
-    width: 110,
+    width: '32%',
     height: 110,
     backgroundColor: '#212121',
     borderRadius: 7,
@@ -32,17 +32,17 @@ const style = StyleSheet.create({
   },
   value: {
     color: '#FFF',
-    fontSize: 19,
+    fontSize: 17,
     fontWeight: '600'
   },
   unit: {
     color: '#777',
-    fontSize: 19,
+    fontSize: 17,
     fontWeight: '600'
   },
   message: {
     color: '#777',
-    fontSize: 17,
+    fontSize: 15,
     fontWeight: '500'
   }
 });

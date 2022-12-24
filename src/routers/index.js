@@ -7,6 +7,7 @@ import BottomTabs from '../navigations/BottomTab';
 import SplashScreen from '../screens/SplashScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import InformationScreen from '../screens/InformationScreen';
+import AvatarScreen from '../screens/AvatarScreen';
 
 const Stack = createStackNavigator();
 
@@ -18,6 +19,7 @@ export default function() {
       <Stack.Screen name='Login' component={LoginScreen} />
       <Stack.Screen name='Register' component={RegisterScreen} />
       <Stack.Screen name='Information' component={InformationScreen} />
+      <Stack.Screen name='Avatar' component={AvatarScreen} />
       <Stack.Screen name='App' component={BottomTabs} />
     </Stack.Navigator>
   );

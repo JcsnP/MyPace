@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, TextInput, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
+import { View, TextInput, Text, TouchableOpacity, StyleSheet, Image, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -29,7 +29,7 @@ export default function LoginScreen({ navigation }) {
       password: password
     })
     .then((response) => {
-      if(response.data.status === 'ok') {
+      if(response.data.status === 200) {
         _storeData(response.data.token);
       } else {
         alert('failed to login');
@@ -43,7 +43,7 @@ export default function LoginScreen({ navigation }) {
   return(
     <SafeAreaView style={styles.container}>
       <View style={{display: 'flex', justifyContent: 'flex-start', height: '100%'}}>
-      <Text style={styles.title}>Login</Text>
+        <Text style={styles.title}>Login</Text>
         <View>
           <TextInput 
             style={styles.textInput}

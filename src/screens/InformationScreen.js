@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, TextInput, StyleSheet, Button, ActionSheetIOS } from "react-native";
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, Button, ActionSheetIOS, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import DateTimePicker from '@react-native-community/datetimepicker';
 
@@ -60,32 +60,17 @@ export default function InformationScreen({ route, navigation }) {
     )
   }
 
-  // create an account
   const register = () => {
-    if(!username || !email || !password || !dob || !height || !weight || !gender) {
-      alert('hmmm, you missed somethings');
-      return;
-    }
-    axios.post(`${MYPACE_API}/users`, {
+    // passed
+    navigation.navigate('Avatar', {
       username: username,
       email: email,
       password: password,
-      information: {
-        dob: dob,
-        height: height,
-        weight: weight,
-        gender: gender
-      },
-      badges: []
-    })
-    .then((response) => {
-      if(response.data.status === 'ok') {
-        navigation.navigate('Login');
-      }
-    })
-    .catch((error) => {
-      console.log(error.message);
-    })
+      dob: dob,
+      height: height,
+      weight: weight,
+      gender: gender
+    });
   }
 
   return(
@@ -146,7 +131,7 @@ export default function InformationScreen({ route, navigation }) {
             onPress={register}
             style={styles.loginButton}
           >
-            <Text style={styles.buttonLabel}>REGISTER</Text>
+            <Text style={styles.buttonLabel}>NEXT</Text>
           </TouchableOpacity>
         </View>
       </View>

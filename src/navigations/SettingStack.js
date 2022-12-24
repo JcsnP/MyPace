@@ -6,6 +6,7 @@ import AboutScreen from "../screens/AboutScreen";
 import SettingScreen from "../screens/SettingScreen";
 import BadgesScreen from "../screens/BadgesScreen";
 import EditInformation from "../screens/EditInformation";
+import FollowingScreen from "../screens/FollowingScreen";
 
 const Stack = createStackNavigator();
 
@@ -54,6 +55,14 @@ const SettingStack = () => {
         options={{
           headerLeftLabelVisible: false,
           title: 'Edit Information'
+        }}
+      />
+      <Stack.Screen
+        name="FollowingScreen"
+        component={FollowingScreen}
+        options={{
+          headerLeftLabelVisible: false,
+          title: 'Following'
         }}
       />
     </Stack.Navigator>

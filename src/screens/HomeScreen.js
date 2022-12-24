@@ -8,6 +8,9 @@ import { useIsFocused } from '@react-navigation/native';
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+import { LineChart, BarChart, PieChart, ProgressChart, ContributionGraph, StackedBarChart } from "react-native-chart-kit";
+import * as Svg from 'react-native-svg';
+
 import { MYPACE_API } from '@env';
 
 // import style
@@ -16,7 +19,6 @@ import styles from '../styles';
 import TokenContext from "../contexts/TokenContext";
 
 // import components
-import ActivityCard from "../components/Homescreen/ActivityCard";
 import SatisticsCard from "../components/Homescreen/StatisticsCard";
 import ActivityBox from "../components/Homescreen/ActivityBox";
 
@@ -144,16 +146,17 @@ export default function HomeScreen() {
     </TouchableOpacity>
   );
 
+  /*
   const findPercentage = (goal, current) => {
     return (current * 100) / goal;
   }
+  */
 
   const findBMR = () => {
     const WEIGHT = 55;
     const HEIGHT = 173;
     const AGE = 21;
     const BMR = 66.5 + (13.76 * WEIGHT) + (5.003 * HEIGHT) - (6.755 * AGE);
-    console.log(BMR);
   }
 
   return(
@@ -218,6 +221,11 @@ export default function HomeScreen() {
             'worklet';
             return value.toLocaleString();
           }}
+          strokeColorConfig={[
+            { color: '#fc95a4', value: goal / 3 },
+            { color: '#ff6e83', value: goal / 2 },
+            { color: '#D70040', value: goal / 1 },
+          ]}
         />
 
         {/* Change Goal */}
@@ -225,18 +233,43 @@ export default function HomeScreen() {
 
         {/* ActivityBox */}
         <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginVertical: 10}}>
-          <ActivityBox icon='percent' value={findPercentage(goal, pastStepCount)} unit='%' message='percentage' />
+          <ActivityBox icon='map-marker-path' value={3.5} unit='km' message='distance' />
           <ActivityBox icon='fire' value={218} unit='kcal' message='calories' />
-          <ActivityBox icon='av-timer' value={1200} unit='hr' message='time of walk' />
+          <ActivityBox icon='av-timer' value={0.20} unit='hr' message='time of walk' />
         </View>
-
-        { /* Statistics */}
-        <ActivityCard paces={pastStepCount} />
 
         {/* ActivityCard */}
         <SatisticsCard />
 
         {findBMR()}
+
+        <BarChart
+        data={{
+          labels: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+          datasets: [
+            {
+              data: [20, 45, 28, 80, 99, 43, 99],
+            },
+          ],
+        }}
+        width={Dimensions.get('window').width - 16}
+        height={250}
+        chartConfig={{
+          backgroundColor: '#1cc910',
+          backgroundGradientFrom: '#212121',
+          backgroundGradientTo: '#252525',
+          decimalPlaces: 0,
+          color: (opacity = 1) => `rgba(215, 0, 64, ${opacity})`,
+          style: {
+            borderRadius: 7,
+          },
+        }}
+        style={{
+          marginVertical: 8,
+          borderRadius: 16,
+        }}
+      />
+
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -251,8 +284,8 @@ const modalStyle = StyleSheet.create({
   },
   modalView: {
     width: '70%',
-    height: '32%',
-    margin: 20,
+    height: 'auto',
+    marginVertical: 20,
     backgroundColor: "#343436",
     borderRadius: 20,
     padding: 35,
