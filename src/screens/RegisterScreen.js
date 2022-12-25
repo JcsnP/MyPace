@@ -43,14 +43,16 @@ export default function RegisterScreen({ navigation }) {
           value={username}
           autoCapitalize = 'none'
           placeholderTextColor="#A9A9A9"
-          placeholder="Username" />
+          placeholder="Username"
+          clearButtonMode="always" />
         <TextInput 
           style={styles.textInput}
           onChangeText={setEmail}
           value={email}
           autoCapitalize = 'none'
           placeholderTextColor="#A9A9A9"
-          placeholder="Email" />
+          placeholder="Email"
+          clearButtonMode="always" />
         <TextInput 
           style={styles.textInput}
           onChangeText={setPassword}
@@ -58,7 +60,8 @@ export default function RegisterScreen({ navigation }) {
           autoCapitalize = 'none'
           placeholderTextColor="#A9A9A9"
           secureTextEntry={true}
-          placeholder="Password" />
+          placeholder="Password"
+          clearButtonMode="always" />
         
         { /* link to information page */ }
         <TouchableOpacity

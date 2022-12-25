@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, TextInput, StyleSheet, Button, ActionSheetIOS, Alert } from "react-native";
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, Button, ActionSheetIOS, Alert, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import DateTimePicker from '@react-native-community/datetimepicker';
 
@@ -61,7 +61,6 @@ export default function InformationScreen({ route, navigation }) {
   }
 
   const register = () => {
-    // passed
     navigation.navigate('Avatar', {
       username: username,
       email: email,
@@ -97,25 +96,33 @@ export default function InformationScreen({ route, navigation }) {
           )}
         </View>
 
-        {/* group */}
-        <View style={customStyle.formGroup}>
-          <Text style={customStyle.label}>Weight - KG</Text>
-          <TextInput
-            style={styles.textInput}
-            onChangeText={setWeight}
-            value={weight}
-          />
-        </View>
+        <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss()}}>
+          {/* group - weight */}
+          <View>
+              <View style={customStyle.formGroup}>
+                <Text style={customStyle.label}>Weight - KG</Text>
+                <TextInput
+                  style={styles.textInput}
+                  onChangeText={setWeight}
+                  value={weight}
+                  keyboardType='numeric'
+                  clearButtonMode="always"
+                />
+              </View>
 
-        {/* group */}
-        <View style={customStyle.formGroup}>
-          <Text style={customStyle.label}>Height - CM</Text>
-          <TextInput
-            style={styles.textInput}
-            onChangeText={setHeight}
-            value={height}
-          />
-        </View>
+              {/* group - height */}
+              <View style={customStyle.formGroup}>
+                <Text style={customStyle.label}>Height - CM</Text>
+                <TextInput
+                  style={styles.textInput}
+                  onChangeText={setHeight}
+                  value={height}
+                  keyboardType='numeric'
+                  clearButtonMode="always"
+                />
+              </View>
+          </View>
+        </TouchableWithoutFeedback>
 
         { /* gender */}
         <View style={customStyle.formGroup}>
