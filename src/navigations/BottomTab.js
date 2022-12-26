@@ -17,11 +17,13 @@ import axios from 'axios';
 // bottom tab navigation
 const Tab = createBottomTabNavigator();
 import TokenContext from '../contexts/TokenContext';
-import PacesContext from '../contexts/PacesContext';
+
 
 const BottomTabsMain = () => {
   const [user, setUser] = useState('');
   const [paces, setPaces] = useState([]);
+  const value = {paces, setPaces};
+  
   const token = useContext(TokenContext).token;
 
   // store user details function
@@ -48,61 +50,59 @@ const BottomTabsMain = () => {
   })
 
   return(
-      <PacesContext.Provider value={paces}>
-        <Tab.Navigator
-              initialRouteName='HomeScreen'
-              screenOptions={{
-                headerShown: false,
-                tabBarActiveTintColor: '#e91e63',
-                tabBarStyle: {
-                  backgroundColor: '#1B1B1B',
-                  borderTopColor: '#000000',
-                  borderTopWidth: 1,
-                },
-              }}
-            >
-              <Tab.Screen
-                name="HomeScreen"
-                component={HomeScreen}
-                options={{
-                  tabBarLabel: 'Home',
-                  tabBarIcon: ({ color, size }) => (
-                    <MaterialCommunityIcons name="home" color={color} size={size} />
-                  ),
-                }}
-              />
-              <Tab.Screen
-                name="ReportScreen"
-                component={ReportScreen}
-                options={{
-                  tabBarLabel: 'Report',
-                  tabBarIcon: ({ color, size }) => (
-                    <MaterialCommunityIcons name="file-document" color={color} size={size} />
-                  ),
-                }}
-              />
-              <Tab.Screen
-                name="LeaderboardScreen"
-                component={LeaderboardScreen}
-                options={{
-                  tabBarLabel: 'Leaderboard',
-                  tabBarIcon: ({ color, size }) => (
-                    <MaterialCommunityIcons name="chart-bar" color={color} size={size} />
-                  ),
-                }}
-              />
-              <Tab.Screen
-                name="SettingScreen"
-                component={SettingStack}
-                options={{
-                  tabBarLabel: 'Setting',
-                  tabBarIcon: ({ color, size }) => (
-                    <MaterialCommunityIcons name="account-settings" color={color} size={size} />
-                  ),
-                }}
-              />
-        </Tab.Navigator>
-      </PacesContext.Provider>
+    <Tab.Navigator
+          initialRouteName='HomeScreen'
+          screenOptions={{
+            headerShown: false,
+            tabBarActiveTintColor: '#e91e63',
+            tabBarStyle: {
+              backgroundColor: '#1B1B1B',
+              borderTopColor: '#000000',
+              borderTopWidth: 1,
+            },
+          }}
+        >
+          <Tab.Screen
+            name="HomeScreen"
+            component={HomeScreen}
+            options={{
+              tabBarLabel: 'Home',
+              tabBarIcon: ({ color, size }) => (
+                <MaterialCommunityIcons name="home" color={color} size={size} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="ReportScreen"
+            component={ReportScreen}
+            options={{
+              tabBarLabel: 'Report',
+              tabBarIcon: ({ color, size }) => (
+                <MaterialCommunityIcons name="file-document" color={color} size={size} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="LeaderboardScreen"
+            component={LeaderboardScreen}
+            options={{
+              tabBarLabel: 'Leaderboard',
+              tabBarIcon: ({ color, size }) => (
+                <MaterialCommunityIcons name="chart-bar" color={color} size={size} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="SettingScreen"
+            component={SettingStack}
+            options={{
+              tabBarLabel: 'Setting',
+              tabBarIcon: ({ color, size }) => (
+                <MaterialCommunityIcons name="account-settings" color={color} size={size} />
+              ),
+            }}
+          />
+    </Tab.Navigator>
   );
 }
 

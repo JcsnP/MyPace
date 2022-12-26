@@ -30,7 +30,7 @@ export default function HomeScreen() {
   const [currentStepCount, setCurrentStepCount] = useState(0);
   const [goal, setGoal] = useState(5500);
   const [temp_goal, setTempGoal] = useState(0);
-  const paces = useContext(PacesContext);
+  const {paces} = useContext(PacesContext);
 
   const [modalVisible, setModalVisible] = useState(false);
 

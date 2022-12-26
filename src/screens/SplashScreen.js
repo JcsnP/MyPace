@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios, { Axios } from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -8,9 +8,14 @@ import { MYPACE_API } from '@env';
 
 import styles from '../styles';
 
+// import context
+import TokenContext from '../contexts/TokenContext';
+
 export default function SplashScreen({navigation}) {
   const [advice, setAdvice] = useState({});
   const [isAdvicesLading, setAdvicesLoading] = useState(true);
+  // set token in context
+  const {token, setToken} = useContext(TokenContext);
 
   useEffect(() => {
     const fetchAdvice = async() => {
@@ -33,11 +38,13 @@ export default function SplashScreen({navigation}) {
 
   const handleGetToken = async() => {
     let token = await AsyncStorage.getItem('@Token');
+    setToken(token);
     if(!token) {
       navigation.replace('Login');
       // navigation.replace('Avatar')
     } else {
-      navigation.replace('App');
+      // navigation.replace('App');
+      navigation.replace('Loading');
     }
   };
 

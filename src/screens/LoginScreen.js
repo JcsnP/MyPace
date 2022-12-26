@@ -9,11 +9,13 @@ import { MYPACE_API } from "@env";
 import styles from '../styles';
 import axios from "axios";
 
+// import context
 import TokenContext from "../contexts/TokenContext";
 
 export default function LoginScreen({ navigation }) {
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
+
   // set token in context
   const {token, setToken} = useContext(TokenContext);
 
@@ -23,8 +25,8 @@ export default function LoginScreen({ navigation }) {
       setToken(await AsyncStorage.getItem('@Token'));
 
       console.log('login');
-      navigation.replace('App');
-      // navigation.replace('Loading');
+      // navigation.replace('App');
+      navigation.replace('Loading');
     } catch(err) {
       console.log(err);
     }

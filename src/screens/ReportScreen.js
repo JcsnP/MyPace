@@ -22,31 +22,11 @@ const Item = ({ item }) => (
 
 export default function ReportScreen() {
   // const [paces, setPaces] = useState([]);
-  const paces = useContext(PacesContext);
+  const {paces} = useContext(PacesContext);
   const [weekpaces, setWeekPaces] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
   
   const token = useContext(TokenContext).token;
-
-
-  /*
-  useEffect(() => {
-    axios.get(`${MYPACE_API}/users/paces`, {
-      headers: {
-        "Authorization" : `Bearer ${token}`
-      }
-    })
-    .then((response) => {
-      if(response.data.status === 200) {
-        setPaces(response.data.history);
-        setIsLoaded(true);
-      }
-    })
-    .catch((error) => {
-      console.log(error.message);
-    })
-  }, [isLoaded])
-  */
 
   useEffect(() => {
     if(paces.length !== 0) {
@@ -84,10 +64,14 @@ export default function ReportScreen() {
               <HiglightBox weekpaces={weekpaces} />
             )
           }
-        <FlatList
-          data={paces}
-          renderItem={renderItem}
-        />
+          {
+            isLoaded && (
+              <FlatList
+                data={paces}
+                renderItem={renderItem}
+              />
+            )
+          }
       </View>
     );
   } else {

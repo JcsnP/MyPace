@@ -9,11 +9,14 @@ import styles from '../styles';
 
 // import context
 import TokenContext from "../contexts/TokenContext";
+import PacesContext from "../contexts/PacesContext";
 
 export default function LoadingScreen({navigation}) {
-  const [paces, setPaces] = useState([]);
+  const {paces, setPaces} = useContext(PacesContext);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const token = useContext(TokenContext).token;
+
   useEffect(() => {
     // get paces history
     const fetchPacesHistory = async() => {
@@ -25,9 +28,6 @@ export default function LoadingScreen({navigation}) {
         })
         if(response.data.status === 200) {
           setPaces(response.data.history);
-          if(paces.length !== 0) {
-            setIsPaceLoaded(true);
-          }
         }
       } catch(error) {
         console.log(error);
@@ -36,8 +36,14 @@ export default function LoadingScreen({navigation}) {
 
     // call method
     fetchPacesHistory();
-    console.log(paces);
-  }, []);
+    if(paces && paces.length) {
+      setTimeout(() => {
+        navigation.replace('App');
+      }, 1000);
+    } else {
+      setIsSuccess(true);
+    }
+  }, [isSuccess]);
 
   return(
     <View style={[styles.container, {display: 'flex', height: '100%', alignItems: 'center', justifyContent: 'center'}]}>
