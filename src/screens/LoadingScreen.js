@@ -36,6 +36,11 @@ export default function LoadingScreen({navigation}) {
 
     // call method
     fetchPacesHistory();
+    setTimeout(() => {
+        navigation.replace('App');
+      }, 1000);
+    /*
+    console.log(paces)
     if(paces && paces.length) {
       setTimeout(() => {
         navigation.replace('App');
@@ -43,6 +48,7 @@ export default function LoadingScreen({navigation}) {
     } else {
       setIsSuccess(true);
     }
+    */
   }, [isSuccess]);
 
   return(
