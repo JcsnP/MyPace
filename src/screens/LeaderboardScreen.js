@@ -40,7 +40,7 @@ export default function LeaderboardScreen() {
         {
           isLoaded && (
             leaderboard.map((user, key) => (
-              <UserCard name={user.user[0].username} paces={user.details.paces} key={key} />
+              <UserCard name={user.user[0].username} paces={user.details.paces} image={user.user[0].image} key={key} />
             ))
           )
         }

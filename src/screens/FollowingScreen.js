@@ -9,6 +9,7 @@ import styles from "../styles";
 
 // import token context
 import TokenContext from "../contexts/TokenContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function FollowingScreen() {
   const [followingName, setfollowingName] = useState('');
@@ -16,7 +17,7 @@ export default function FollowingScreen() {
   const [modalVisible, setModalVisible] = useState(false);
   const [searchedFollowing, setSearchedFollowing] = useState({});
   const [isFollowed, setIsFollowed] = useState(false);
-  const token = useContext(TokenContext);
+  const token = useContext(TokenContext).token;
 
   useEffect(() => {
     const fetchFollowings = async() => {
@@ -28,7 +29,6 @@ export default function FollowingScreen() {
             }
           }
         );
-
         if(response.data.status === 200) {
           setFollowingList(response.data.followings);
         }

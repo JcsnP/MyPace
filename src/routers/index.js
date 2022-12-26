@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 // import screens
@@ -8,19 +8,28 @@ import SplashScreen from '../screens/SplashScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import InformationScreen from '../screens/InformationScreen';
 import AvatarScreen from '../screens/AvatarScreen';
+import LoadingScreen from '../screens/LoadingScreen';
 
 const Stack = createStackNavigator();
 
+// token context
+import TokenContext from '../contexts/TokenContext';
+
 export default function() {
+  const [token, setToken] = useState('');
+  const value = {token, setToken};
   {/* remove 'gestureEnabled: false' in screenOption for enable user go to previous screen */}
   return(
-    <Stack.Navigator screenOptions={{headerShown: false}} >
-      <Stack.Screen name='Splash' component={SplashScreen} />
-      <Stack.Screen name='Login' component={LoginScreen} />
-      <Stack.Screen name='Register' component={RegisterScreen} />
-      <Stack.Screen name='Information' component={InformationScreen} />
-      <Stack.Screen name='Avatar' component={AvatarScreen} />
-      <Stack.Screen name='App' component={BottomTabs} />
-    </Stack.Navigator>
+     <TokenContext.Provider value={value}>
+      <Stack.Navigator screenOptions={{headerShown: false}} >
+        <Stack.Screen name='Splash' component={SplashScreen} />
+        <Stack.Screen name='Login' component={LoginScreen} />
+        <Stack.Screen name='Loading' component={LoadingScreen} />
+        <Stack.Screen name='Register' component={RegisterScreen} />
+        <Stack.Screen name='Information' component={InformationScreen} />
+        <Stack.Screen name='Avatar' component={AvatarScreen} />
+        <Stack.Screen name='App' component={BottomTabs} />
+      </Stack.Navigator>
+    </TokenContext.Provider>
   );
 }

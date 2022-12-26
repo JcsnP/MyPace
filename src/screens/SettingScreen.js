@@ -22,7 +22,7 @@ import TokenContext from "../contexts/TokenContext";
 export default function SettingScreen({ navigation }) {
   const [user, setUser] = useState({});
   const [isLoaded, setIsLoaded] = useState(false);
-  const token = useContext(TokenContext);
+  const token = useContext(TokenContext).token;
 
   /*
   async function fetchUserDetails() {

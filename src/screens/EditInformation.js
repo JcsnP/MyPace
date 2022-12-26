@@ -10,6 +10,7 @@ import axios from "axios";
 
 // import token context
 import TokenContext from "../contexts/TokenContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function EditInformation({navigation}) {
   const [ dob, setDOB ] = useState('');
@@ -29,7 +30,7 @@ export default function EditInformation({navigation}) {
     setShow(Platform.OS === 'ios');
     setDate(currentDate);
 
-    let tempDate= new Date(currentDate);
+    let tempDate = new Date(currentDate);
     // MM/DD/YYYY
     let fDate = + (tempDate.getMonth() + 1) + '/' + tempDate.getDate() + '/' + tempDate.getFullYear();
     setDOB(fDate);
@@ -62,7 +63,7 @@ export default function EditInformation({navigation}) {
     )
   }
 
-  const token = useContext(TokenContext);
+  const token = useContext(TokenContext).token;
 
   useEffect(() => {
     axios.get(`${MYPACE_API}/users/me`, {

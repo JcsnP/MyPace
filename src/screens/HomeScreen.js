@@ -17,6 +17,7 @@ import { MYPACE_API } from '@env';
 import styles from '../styles';
 // import token context
 import TokenContext from "../contexts/TokenContext";
+import PacesContext from "../contexts/PacesContext";
 
 // import components
 import SatisticsCard from "../components/Homescreen/StatisticsCard";
@@ -29,10 +30,11 @@ export default function HomeScreen() {
   const [currentStepCount, setCurrentStepCount] = useState(0);
   const [goal, setGoal] = useState(5500);
   const [temp_goal, setTempGoal] = useState(0);
+  const paces = useContext(PacesContext);
 
   const [modalVisible, setModalVisible] = useState(false);
 
-  const token = useContext(TokenContext);
+  const token = useContext(TokenContext).token;
 
   let _subscription;
   const windowWidth = Dimensions.get('window').width;
@@ -241,14 +243,13 @@ export default function HomeScreen() {
         {/* ActivityCard */}
         <SatisticsCard />
 
-        {findBMR()}
-
         <BarChart
         data={{
           labels: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
           datasets: [
             {
-              data: [20, 45, 28, 80, 99, 43, 99],
+              // data: [20, 45, 28, 80, 99, 43, 99],
+              data: paces.map(item => (item.details.paces))
             },
           ],
         }}

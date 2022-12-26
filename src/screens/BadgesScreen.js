@@ -13,7 +13,8 @@ import TokenContext from "../contexts/TokenContext";
 export default function BadgesScreen() {
   const [allBadges, setAllBadges] = useState([]);
   const [myBadges, setMyBadges] = useState([]);
-  const token = useContext(TokenContext);
+  const token = useContext(TokenContext).token;
+  
   useEffect(() => {
     const fetchAllBadges = async() => {
       const response = await axios.get(`${MYPACE_API}/badges`);
@@ -23,13 +24,17 @@ export default function BadgesScreen() {
     }
 
     const fetchMyBadges = async() => {
-      const response = await axios.get(`${MYPACE_API}/users/me/badges`, {
-        headers: {
-          "Authorization" : `Bearer ${token}`
+      try {
+        const response = await axios.get(`${MYPACE_API}/users/me/badges`, {
+          headers: {
+            "Authorization" : `Bearer ${token}`
+          }
+        });
+        if(response.data.status === 200) {
+          setMyBadges(response.data.badges);
         }
-      });
-      if(response.data.status === 200) {
-        setMyBadges(response.data.badges);
+      } catch(error) {
+        console.log(error);
       }
     }
 

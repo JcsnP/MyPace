@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { View, TextInput, Text, TouchableOpacity, StyleSheet, Image, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -9,15 +9,22 @@ import { MYPACE_API } from "@env";
 import styles from '../styles';
 import axios from "axios";
 
+import TokenContext from "../contexts/TokenContext";
+
 export default function LoginScreen({ navigation }) {
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
+  // set token in context
+  const {token, setToken} = useContext(TokenContext);
 
   const _storeData = async (data) => {
     try {
       await AsyncStorage.setItem('@Token', data);
+      setToken(await AsyncStorage.getItem('@Token'));
+
       console.log('login');
       navigation.replace('App');
+      // navigation.replace('Loading');
     } catch(err) {
       console.log(err);
     }
@@ -51,7 +58,8 @@ export default function LoginScreen({ navigation }) {
             value={username}
             placeholderTextColor="#A9A9A9"
             autoCapitalize = 'none'
-            placeholder="Username" />
+            placeholder="Username"
+            clearButtonMode="always" />
 
           <TextInput 
             style={styles.textInput}
@@ -60,7 +68,8 @@ export default function LoginScreen({ navigation }) {
             placeholderTextColor="#A9A9A9"
             secureTextEntry={true}
             autoCapitalize = 'none'
-            placeholder="Password" />
+            placeholder="Password"
+            clearButtonMode="always" />
 
           <TouchableOpacity
             style={styles.loginButton}

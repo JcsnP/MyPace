@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from 'react';
+import React, { useState, useEffect, createContext, useContext } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -16,19 +16,13 @@ import axios from 'axios';
 
 // bottom tab navigation
 const Tab = createBottomTabNavigator();
-
-// TokenContext
-// const TokenContext = createContext();
 import TokenContext from '../contexts/TokenContext';
+import PacesContext from '../contexts/PacesContext';
 
 const BottomTabsMain = () => {
   const [user, setUser] = useState('');
-  const [token, setToken] = useState('');
-
-  // get token function
-  const _getToken = async() => {
-    setToken(await AsyncStorage.getItem('@Token'));
-  }
+  const [paces, setPaces] = useState([]);
+  const token = useContext(TokenContext).token;
 
   // store user details function
   const _storeDetails = async(user) => {
@@ -36,8 +30,6 @@ const BottomTabsMain = () => {
   }
 
   useEffect(() => {
-    // get token
-    _getToken();
 
     // authen to store user's data
     axios.get(`${MYPACE_API}/users/me`, {
@@ -56,61 +48,61 @@ const BottomTabsMain = () => {
   })
 
   return(
-    <TokenContext.Provider value={token}>
-      <Tab.Navigator
-            initialRouteName='HomeScreen'
-            screenOptions={{
-              headerShown: false,
-              tabBarActiveTintColor: '#e91e63',
-              tabBarStyle: {
-                backgroundColor: '#1B1B1B',
-                borderTopColor: '#000000',
-                borderTopWidth: 1,
-              },
-            }}
-          >
-            <Tab.Screen
-              name="HomeScreen"
-              component={HomeScreen}
-              options={{
-                tabBarLabel: 'Home',
-                tabBarIcon: ({ color, size }) => (
-                  <MaterialCommunityIcons name="home" color={color} size={size} />
-                ),
+      <PacesContext.Provider value={paces}>
+        <Tab.Navigator
+              initialRouteName='HomeScreen'
+              screenOptions={{
+                headerShown: false,
+                tabBarActiveTintColor: '#e91e63',
+                tabBarStyle: {
+                  backgroundColor: '#1B1B1B',
+                  borderTopColor: '#000000',
+                  borderTopWidth: 1,
+                },
               }}
-            />
-            <Tab.Screen
-              name="ReportScreen"
-              component={ReportScreen}
-              options={{
-                tabBarLabel: 'Report',
-                tabBarIcon: ({ color, size }) => (
-                  <MaterialCommunityIcons name="file-document" color={color} size={size} />
-                ),
-              }}
-            />
-            <Tab.Screen
-              name="LeaderboardScreen"
-              component={LeaderboardScreen}
-              options={{
-                tabBarLabel: 'Leaderboard',
-                tabBarIcon: ({ color, size }) => (
-                  <MaterialCommunityIcons name="chart-bar" color={color} size={size} />
-                ),
-              }}
-            />
-            <Tab.Screen
-              name="SettingScreen"
-              component={SettingStack}
-              options={{
-                tabBarLabel: 'Setting',
-                tabBarIcon: ({ color, size }) => (
-                  <MaterialCommunityIcons name="account-settings" color={color} size={size} />
-                ),
-              }}
-            />
-      </Tab.Navigator>
-    </TokenContext.Provider>
+            >
+              <Tab.Screen
+                name="HomeScreen"
+                component={HomeScreen}
+                options={{
+                  tabBarLabel: 'Home',
+                  tabBarIcon: ({ color, size }) => (
+                    <MaterialCommunityIcons name="home" color={color} size={size} />
+                  ),
+                }}
+              />
+              <Tab.Screen
+                name="ReportScreen"
+                component={ReportScreen}
+                options={{
+                  tabBarLabel: 'Report',
+                  tabBarIcon: ({ color, size }) => (
+                    <MaterialCommunityIcons name="file-document" color={color} size={size} />
+                  ),
+                }}
+              />
+              <Tab.Screen
+                name="LeaderboardScreen"
+                component={LeaderboardScreen}
+                options={{
+                  tabBarLabel: 'Leaderboard',
+                  tabBarIcon: ({ color, size }) => (
+                    <MaterialCommunityIcons name="chart-bar" color={color} size={size} />
+                  ),
+                }}
+              />
+              <Tab.Screen
+                name="SettingScreen"
+                component={SettingStack}
+                options={{
+                  tabBarLabel: 'Setting',
+                  tabBarIcon: ({ color, size }) => (
+                    <MaterialCommunityIcons name="account-settings" color={color} size={size} />
+                  ),
+                }}
+              />
+        </Tab.Navigator>
+      </PacesContext.Provider>
   );
 }
 

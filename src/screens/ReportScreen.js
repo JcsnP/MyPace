@@ -1,7 +1,7 @@
 // import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, FlatList } from "react-native";
 
 import { MYPACE_API } from "@env";
 
@@ -14,14 +14,22 @@ import HiglightBox from "../components/ReportScreen/HiglightBox";
 
 // import TokenContext
 import TokenContext from "../contexts/TokenContext";
+import PacesContext from "../contexts/PacesContext";
+
+const Item = ({ item }) => (
+  <PacesBox item={item} />
+);
 
 export default function ReportScreen() {
-  const [paces, setPaces] = useState([]);
+  // const [paces, setPaces] = useState([]);
+  const paces = useContext(PacesContext);
   const [weekpaces, setWeekPaces] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
   
-  const token = useContext(TokenContext);
+  const token = useContext(TokenContext).token;
 
+
+  /*
   useEffect(() => {
     axios.get(`${MYPACE_API}/users/paces`, {
       headers: {
@@ -38,6 +46,13 @@ export default function ReportScreen() {
       console.log(error.message);
     })
   }, [isLoaded])
+  */
+
+  useEffect(() => {
+    if(paces.length !== 0) {
+      setIsLoaded(true);
+    }
+  }, []);
 
   useEffect(() => {
     axios.get(`${MYPACE_API}/users/paces/life`, {
@@ -55,30 +70,24 @@ export default function ReportScreen() {
     })
   } , [isLoaded]);
 
+  const renderItem = ({ item }) => (
+    <Item item={item} />
+  );
+
   if(paces.history !== 0) {
     return(
       <View style={styles.container}>
         <Text style={styles.title}>Report</Text>
-        <ScrollView style={{width: '100%', height: '100%'}}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{flexGrow: 1}}
-        >
           { /* ค่อยเอาเวลามาใส่ระบบคำนวณการเดินเฉลี่ย */ }
           {
             isLoaded && (
               <HiglightBox weekpaces={weekpaces} />
             )
           }
-          {
-            isLoaded && (
-              paces.map((item, key) => {
-                return(
-                  <PacesBox item={item} key={key} />
-                );
-              })
-            )
-          }
-        </ScrollView>
+        <FlatList
+          data={paces}
+          renderItem={renderItem}
+        />
       </View>
     );
   } else {
