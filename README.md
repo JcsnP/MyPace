@@ -2,7 +2,7 @@
 
 หลังจากทำการ clone ไปยังเครื่องคอมพิวเตอร์แล้ว ให้ทำการใช้คำสั่ง `npm install` เพื่อติดตั้ง node_modules
 
-❗️ ต้องรันแอปร่วมกับ API ของฐานข้อมูล ❗️
+[❗️ ต้องรันแอปร่วมกับ API ของฐานข้อมูล ❗](https://github.com/JcsnP/mypace-application-api)
 
 **Package**
 
