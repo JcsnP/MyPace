@@ -10,13 +10,16 @@ import styles from '../styles';
 // import context
 import TokenContext from "../contexts/TokenContext";
 import PacesContext from "../contexts/PacesContext";
+import UserContext from "../contexts/UserContext";
 
 export default function LoadingScreen({navigation}) {
   const {paces, setPaces} = useContext(PacesContext);
   const [isUserLoaded, setIsUserLoaded] = useState(false);
   const [isPacesLoaded, setIsPacesLoaded] = useState(false);
 
+  // context
   const token = useContext(TokenContext).token;
+  const {user, setUser} = useContext(UserContext);
 
   useEffect(() => {
     // get paces history
@@ -35,18 +38,21 @@ export default function LoadingScreen({navigation}) {
         console.log(error);
       }
     }
-
+    
     // fetch user information
     const fetchUser = async() => {
-      const response = await axios.get(`${MYPACE_API}/users/me`, {
-        headers: {
-          "Authorization" : `Bearer ${token}`
+      try {
+        const response = await axios.get(`${MYPACE_API}/users/me`, {
+          headers: {
+            "Authorization" : `Bearer ${token}`
+          }
+        });
+        if(response.data.status === 200) {
+          setUser(response.data.user);
+          setIsUserLoaded(true);
         }
-      });
-      if(response.data.status === 200) {
-        setUser(response.data.user);
-        setIsUserLoaded(true);
-        setIsLoaded(true);
+      } catch(error) {
+        console.log(error);
       }
     }
 
@@ -60,7 +66,7 @@ export default function LoadingScreen({navigation}) {
         navigation.replace('App');
       }, 1000);
     }
-  }, [isSuccess]);
+  }, [isPacesLoaded, isUserLoaded]);
 
   return(
     <View style={[styles.container, {display: 'flex', height: '100%', alignItems: 'center', justifyContent: 'center'}]}>

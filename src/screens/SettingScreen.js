@@ -18,12 +18,16 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // import token context
 import TokenContext from "../contexts/TokenContext";
+import UserContext from '../contexts/UserContext';
 
 export default function SettingScreen({ navigation }) {
-  const [user, setUser] = useState({});
+  // const [user, setUser] = useState({});
   const [isLoaded, setIsLoaded] = useState(false);
+  
+  // context
   const token = useContext(TokenContext).token;
-
+  const {user, setUser} = useContext(UserContext);
+  
   /*
   async function fetchUserDetails() {
     setUser(JSON.parse(await AsyncStorage.getItem('UserDetails')));
@@ -31,24 +35,11 @@ export default function SettingScreen({ navigation }) {
   }
   */
 
-  const isFocused = useIsFocused();
   useEffect(() => {
-    if(isFocused) {
-      const fetchUser = async() => {
-        const response = await axios.get(`${MYPACE_API}/users/me`, {
-          headers: {
-            "Authorization" : `Bearer ${token}`
-          }
-        });
-        if(response.data.status === 200) {
-          setUser(response.data.user);
-          setIsLoaded(true);
-        }
-      }
-
-      fetchUser();
+    if(user) {
+      setIsLoaded(true);
     }
-  }, [isFocused])
+  }, []);
 
   const useCard = () => {
     if(isLoaded) {
