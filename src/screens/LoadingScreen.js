@@ -13,7 +13,8 @@ import PacesContext from "../contexts/PacesContext";
 
 export default function LoadingScreen({navigation}) {
   const {paces, setPaces} = useContext(PacesContext);
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [isUserLoaded, setIsUserLoaded] = useState(false);
+  const [isPacesLoaded, setIsPacesLoaded] = useState(false);
 
   const token = useContext(TokenContext).token;
 
@@ -28,27 +29,37 @@ export default function LoadingScreen({navigation}) {
         })
         if(response.data.status === 200) {
           setPaces(response.data.history);
-          setTimeout(() => {
-            navigation.replace('App');
-          }, 1000);
+          setIsPacesLoaded(true);
         }
       } catch(error) {
         console.log(error);
       }
     }
 
+    // fetch user information
+    const fetchUser = async() => {
+      const response = await axios.get(`${MYPACE_API}/users/me`, {
+        headers: {
+          "Authorization" : `Bearer ${token}`
+        }
+      });
+      if(response.data.status === 200) {
+        setUser(response.data.user);
+        setIsUserLoaded(true);
+        setIsLoaded(true);
+      }
+    }
+
+    // call method
+    fetchUser();
     // call method
     fetchPacesHistory();
-    /*
-    console.log(paces)
-    if(paces && paces.length) {
+
+    if(isUserLoaded && isPacesLoaded) {
       setTimeout(() => {
         navigation.replace('App');
       }, 1000);
-    } else {
-      setIsSuccess(true);
     }
-    */
   }, [isSuccess]);
 
   return(
