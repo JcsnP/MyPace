@@ -3,7 +3,6 @@ import { StyleSheet, View, Text, Image } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 
 export default function UserCard({name, paces, image}) {
-  console.log(name)
   return(
     <View style={styles.card}>
       <Image source={{uri: image}} style={styles.image} />

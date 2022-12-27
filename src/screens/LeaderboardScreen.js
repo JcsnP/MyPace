@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { View, Text, ScrollView, ActivityIndicator, StyleSheet } from "react-native";
+import { useIsFocused } from '@react-navigation/native';
 import axios from "axios";
 import { MYPACE_API } from '@env';
 
@@ -18,25 +19,31 @@ import TokenContext from "../contexts/TokenContext";
 export default function LeaderboardScreen() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [leaderboard, setLeaderboard] = useState([]);
+  const isFocused = useIsFocused();
 
   const token = useContext(TokenContext).token;
   useEffect(() => {
-    axios.get(`${MYPACE_API}/leaderboard`, {
-      headers: {
-        "Authorization" : `Bearer ${token}`
+    try {
+      if(isFocused) {
+        axios.get(`${MYPACE_API}/leaderboard`, {
+          headers: {
+            "Authorization" : `Bearer ${token}`
+          }
+        })
+        .then((response) => {
+          if(response.data.status === 200) {
+            setLeaderboard(response.data.leaderboard);
+            setIsLoaded(true);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        })
       }
-    })
-    .then((response) => {
-      console.log(response.data)
-      if(response.data.status === 200) {
-        setLeaderboard(response.data.leaderboard);
-        setIsLoaded(true);
-      }
-    })
-    .catch((error) => {
+    } catch(error) {
       console.log(error);
-    })
-  }, [isLoaded]);
+    }
+  }, [isLoaded, isFocused]);
   return(
     <View style={styles.container}>
       <Text style={styles.title}>Leaderboard</Text>
