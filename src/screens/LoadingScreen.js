@@ -28,6 +28,9 @@ export default function LoadingScreen({navigation}) {
         })
         if(response.data.status === 200) {
           setPaces(response.data.history);
+          setTimeout(() => {
+            navigation.replace('App');
+          }, 1000);
         }
       } catch(error) {
         console.log(error);
@@ -36,9 +39,6 @@ export default function LoadingScreen({navigation}) {
 
     // call method
     fetchPacesHistory();
-    setTimeout(() => {
-        navigation.replace('App');
-      }, 1000);
     /*
     console.log(paces)
     if(paces && paces.length) {
