@@ -120,13 +120,19 @@ export default function HomeScreen() {
         return;
       }
 
+      // ถ้าผู้ใช้อยากจะเดินมากเกินไป
+      if(temp_goal >= 99999) {
+        Alert.alert('We do not allow The Flash to use our app.');
+        return;
+      }
+
       // ถ้าผู้ใช้กรอกเป้าหมายน้อยกว่าจำนวนก้าวที่เดินในปัจจุบัน
       if(pastStepCount >= temp_goal) {
         Alert.alert('You must enter a goal greater than the current step count.');
         return;
       }
 
-      // ดักไว้ เพื่อผู้ใช้กวนตีนใส่ค่าที่น้อยกว่า 0
+      // ถ้าค่ามากกว่า 0 ก็เก็บเข้า AsyncStorage
       if(goal > 0) {
         await AsyncStorage.setItem('goal', temp_goal);
       }
