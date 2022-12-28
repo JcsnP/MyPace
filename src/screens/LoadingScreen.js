@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, Text, Image, ActivityIndicator } from "react-native";
+import { View, Text, Image, ActivityIndicator, Alert } from "react-native";
 import axios from "axios";
 
 import { MYPACE_API } from '@env';
@@ -37,6 +37,7 @@ export default function LoadingScreen({navigation}) {
         }
       } catch(error) {
         console.log(error);
+        console.warn(error.message);
       }
     }
     
@@ -67,8 +68,6 @@ export default function LoadingScreen({navigation}) {
       setTimeout(() => {
         navigation.replace('App');
       }, 1000);
-    } else {
-      return Alert.alert('Unable to load data.')
     }
   }, [isPacesLoaded, isUserLoaded]);
 

@@ -45,7 +45,7 @@ export default function LoginScreen({ navigation }) {
       }
     })
     .catch((err) => {
-      console.log(err);
+      console.log(err.message);
     })
   }
 

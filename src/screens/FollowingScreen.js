@@ -42,7 +42,9 @@ export default function FollowingScreen() {
       }
     }
 
-    fetchFollowings()
+    if(isFocused) {
+      fetchFollowings();
+    }
     // when add modalVisible, it's worked
   }, [isFocused, modalVisible]);
 

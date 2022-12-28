@@ -28,7 +28,7 @@ export default function HomeScreen() {
   const [isPedometerAvailable, setIsPedometerAvailable] = useState('checking');
   const [pastStepCount, setPastStepCount] = useState(0);
   const [currentStepCount, setCurrentStepCount] = useState(0);
-  const [goal, setGoal] = useState(5500);
+  const [goal, setGoal] = useState(0);
   const [temp_goal, setTempGoal] = useState(0);
   const {paces} = useContext(PacesContext);
 
@@ -62,7 +62,8 @@ export default function HomeScreen() {
         setPastStepCount(result.steps);
       },
       error => {
-        setPastStepCount('Could not get stepCount: ' + error);
+        setCurrentStepCount(1000);
+        // setPastStepCount('Could not get stepCount: ' + error);
       }
     );
   };
@@ -106,7 +107,6 @@ export default function HomeScreen() {
         }
       }
       fetchGoal();
-
       // console.log(isPedometerAvailable, pastStepCount, currentStepCount);
     }
 
@@ -115,7 +115,7 @@ export default function HomeScreen() {
 
   const setUserGoal = async() => {
     try {
-      if(goal === 0) {
+      if(temp_goal === 0) {
         Alert.alert('Invalid Value');
         return;
       }
@@ -174,7 +174,7 @@ export default function HomeScreen() {
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          setModalVisible(!modalVisible);
+          setModalVisible(false);
         }}
         >
           <TouchableOpacity
