@@ -19,13 +19,14 @@ import styles from '../styles';
 // import token context
 import TokenContext from "../contexts/TokenContext";
 import PacesContext from "../contexts/PacesContext";
+import UserContext from '../contexts/UserContext';
 
 // import components
 import SatisticsCard from "../components/Homescreen/StatisticsCard";
 import ActivityBox from "../components/Homescreen/ActivityBox";
 
 export default function HomeScreen() {
-  const [user, setUser] = useState({});
+  const {user} = useContext(UserContext);
   const [isPedometerAvailable, setIsPedometerAvailable] = useState('checking');
   const [pastStepCount, setPastStepCount] = useState(0);
   const [currentStepCount, setCurrentStepCount] = useState(0);
@@ -33,6 +34,11 @@ export default function HomeScreen() {
   const [temp_goal, setTempGoal] = useState(0);
   const {paces} = useContext(PacesContext);
   const [badges, setBadges] = useState([]);
+
+  // distance, kcal and time
+  const [distance, setDitance] = useState(0)
+  const [kcal, setKcal] = useState(0);
+  const [time, setTime] = useState(0);
 
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -116,10 +122,34 @@ export default function HomeScreen() {
       });
     }
 
+    // calculate distance, kcal and time
+    const calculateDistance = () => {
+      // find pace lenth in cm
+      const PACE_LENGTH = (user.information.height) * 0.413;
+      const walking_distance = (PACE_LENGTH * pastStepCount) / 100;
+      setDitance(walking_distance.toFixed(2))
+    }
+
+    const calculateKCal = () => {
+      const burned = pastStepCount * 0.035745; // ค่าเฉลี่ยในการเผาผลาญต่อ 1 ก้าว
+      setKcal(burned);
+    }
+
+    const calculateTime = () => {
+      const walking_time = pastStepCount / 75
+      setTime(walking_time);
+    }
+
+
     if(isFocused) {
       fetchGoal();
       checkBadge();
+      calculateDistance();
+      calculateKCal();
+      calculateTime();
+
       // console.log(isPedometerAvailable, pastStepCount, currentStepCount);
+      // console.log(distance, kcal, time);
     }
     
     return ()=> _unsubscribe();
@@ -184,11 +214,13 @@ export default function HomeScreen() {
     </TouchableOpacity>
   );
 
-  const findBMR = () => {
-    const WEIGHT = 55;
-    const HEIGHT = 173;
-    const AGE = 21;
-    const BMR = 66.5 + (13.76 * WEIGHT) + (5.003 * HEIGHT) - (6.755 * AGE);
+  function timeConvert(n) {
+    var num = n;
+    var hours = (num / 60);
+    var rhours = Math.floor(hours);
+    var minutes = (hours - rhours) * 60;
+    var rminutes = Math.round(minutes);
+    return `${rhours}.${rminutes}`;
   }
 
   // ส่งค่าไปเก็บไว้ในฐานข้อมูลเมื่อขึ้นวันใหม่
@@ -266,9 +298,9 @@ export default function HomeScreen() {
 
         {/* ActivityBox */}
         <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginVertical: 10}}>
-          <ActivityBox icon='map-marker-path' value={3.5} unit='km' message='distance' />
-          <ActivityBox icon='fire' value={218} unit='kcal' message='calories' />
-          <ActivityBox icon='av-timer' value={0.20} unit='hr' message='time of walk' />
+          <ActivityBox icon='map-marker-path' value={distance / 1000} unit='km' message='distance' />
+          <ActivityBox icon='fire' value={kcal} unit='kcal' message='calories' />
+          <ActivityBox icon='av-timer' value={timeConvert(time)} unit='hr' message='time of walk' />
         </View>
 
         {/* ActivityCard */}
