@@ -53,6 +53,7 @@ export default function LoadingScreen({navigation}) {
         }
       } catch(error) {
         console.log(error);
+        console.warn(error.message);
       }
     }
 
@@ -65,6 +66,8 @@ export default function LoadingScreen({navigation}) {
       setTimeout(() => {
         navigation.replace('App');
       }, 1000);
+    } else {
+      return Alert.alert('Unable to load data.')
     }
   }, [isPacesLoaded, isUserLoaded]);
 
