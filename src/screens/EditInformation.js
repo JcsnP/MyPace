@@ -10,6 +10,8 @@ import axios from "axios";
 
 // import token context
 import TokenContext from "../contexts/TokenContext";
+import UserContext from "../contexts/UserContext";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function EditInformation({navigation}) {
@@ -64,23 +66,18 @@ export default function EditInformation({navigation}) {
   }
 
   const token = useContext(TokenContext).token;
+  const {user, setUser} = useContext(UserContext);
 
   useEffect(() => {
-    axios.get(`${MYPACE_API}/users/me`, {
-      headers: {
-        "Authorization" : `Bearer ${token}`
-      }
-    })
-    .then(res => {
-      setDOB(res.data.user.information.dob);
-      setHeight(res.data.user.information.height);
-      setWeight(res.data.user.information.weight);
-      setGender(res.data.user.information.gender);
+    try {
+      setDOB(user.information.dob);
+      setHeight(user.information.height);
+      setWeight(user.information.weight);
+      setGender(user.information.gender);
       setIsLoading(false);
-    })
-    .catch(err => {
-      console.log(err);
-    })
+    } catch(error) {
+      console.log(error);
+    }
   }, []);
 
   // create an account
@@ -102,6 +99,17 @@ export default function EditInformation({navigation}) {
     )
     .then((response) => {
       if(response.data.status === 200) {
+        // update context
+        setUser(prevState => ({
+          ...prevState,
+          information: {
+            ...prevState.information,
+            height: height,
+            dob: dob,
+            weight, weight,
+            gender: gender
+          }
+        }))
         navigation.navigate('MainSettingScreen');
       }
       if(response.data.status === 204) {

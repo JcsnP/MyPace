@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, SafeAreaView, StyleSheet } from "react-native";
+import { View, Text, Image, TouchableOpacity, SafeAreaView, StyleSheet } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 
 export default function UserInfoCard({ user }) {
   return(
     <>
-    <Text style={{color: '#FFF', fontWeight: '800', fontSize: 30, textAlign: 'right', marginBottom: 10}}>👋 Helllo, {user.username}</Text>
+    <View style={styles.header}>
+      <Image source={{uri: user.image}} style={styles.image} />
+      <Text style={{color: '#FFF', fontWeight: '800', fontSize: 30, textAlign: 'right'}}>👋 Helllo, {user.username}</Text>
+    </View>
     <View style={styles.card}>
       <View style={styles.flexContainer}>
         <View style={styles.data}>
@@ -35,6 +38,13 @@ export default function UserInfoCard({ user }) {
 }
 
 const styles = StyleSheet.create({
+  header: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 10
+  },
   card: {
     borderWidth: 1,
     borderColor: '#3D3D3D',
@@ -67,5 +77,13 @@ const styles = StyleSheet.create({
     color: '#D1D1D1',
     fontWeight: '800',
     fontSize: 18
+  },
+  image: {
+    width: 40,
+    height: 40,
+    borderRadius: 7,
+    borderWidth: 1,
+    borderColor: '#444',
+    backgroundColor: '#333'
   }
 });

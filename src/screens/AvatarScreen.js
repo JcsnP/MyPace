@@ -40,10 +40,10 @@ export default function AvatarScreen({route, navigation}) {
       return;
     }
     axios.post(`${MYPACE_API}/users`, {
-      username: username,
-      email: email,
+      username: username.trim(),
+      email: email.trim(),
       image: choosed,
-      password: password,
+      password: password.trim(),
       information: {
         dob: dob,
         height: height,

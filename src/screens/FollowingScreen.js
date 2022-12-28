@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { View, Modal, SafeAreaView, Text, Image, StyleSheet, ScrollView, TextInput, TouchableOpacity, Alert, Keyboard } from "react-native";
+import { useIsFocused } from '@react-navigation/native';
 import axios from "axios";
 
 import { MYPACE_API } from '@env';
@@ -9,6 +10,7 @@ import styles from "../styles";
 
 // import token context
 import TokenContext from "../contexts/TokenContext";
+import UserContext from "../contexts/UserContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function FollowingScreen() {
@@ -18,6 +20,9 @@ export default function FollowingScreen() {
   const [searchedFollowing, setSearchedFollowing] = useState({});
   const [isFollowed, setIsFollowed] = useState(false);
   const token = useContext(TokenContext).token;
+  const isFocused = useIsFocused();
+
+  const username = useContext(UserContext).user.username;
 
   useEffect(() => {
     const fetchFollowings = async() => {
@@ -37,15 +42,19 @@ export default function FollowingScreen() {
       }
     }
 
-    fetchFollowings();
-  }, []);
+    fetchFollowings()
+    // when add modalVisible, it's worked
+  }, [isFocused, modalVisible]);
 
   const findUser = async() => {
     if(followingName.length === 0) {
       return Alert.alert('Following name is empty');
     }
+    if(followingName === username) {
+      return Alert.alert('Why you want to following yourself ?');
+    }
     try {
-      const response = await axios.get(`${MYPACE_API}/user/${followingName}`);
+      const response = await axios.get(`${MYPACE_API}/user/${followingName.trim()}`);
       if(response.data.status === 200) {
         setSearchedFollowing(response.data.userDetails);
         followingList.map(item => {
@@ -56,6 +65,8 @@ export default function FollowingScreen() {
           }
         });
         setModalVisible(true);
+      } else if(response.data.status === 404) {
+        return Alert.alert('User not found');
       }
     } catch(error) {
       console.log(error);

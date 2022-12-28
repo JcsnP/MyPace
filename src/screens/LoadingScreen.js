@@ -10,12 +10,16 @@ import styles from '../styles';
 // import context
 import TokenContext from "../contexts/TokenContext";
 import PacesContext from "../contexts/PacesContext";
+import UserContext from "../contexts/UserContext";
 
 export default function LoadingScreen({navigation}) {
   const {paces, setPaces} = useContext(PacesContext);
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [isUserLoaded, setIsUserLoaded] = useState(false);
+  const [isPacesLoaded, setIsPacesLoaded] = useState(false);
 
+  // context
   const token = useContext(TokenContext).token;
+  const {user, setUser} = useContext(UserContext);
 
   useEffect(() => {
     // get paces history
@@ -28,23 +32,45 @@ export default function LoadingScreen({navigation}) {
         })
         if(response.data.status === 200) {
           setPaces(response.data.history);
-          console.log('loading success')
+          setIsPacesLoaded(true);
+          console.log('loding success')
         }
       } catch(error) {
         console.log(error);
       }
     }
+    
+    // fetch user information
+    const fetchUser = async() => {
+      try {
+        const response = await axios.get(`${MYPACE_API}/users/me`, {
+          headers: {
+            "Authorization" : `Bearer ${token}`
+          }
+        });
+        if(response.data.status === 200) {
+          setUser(response.data.user);
+          setIsUserLoaded(true);
+        }
+      } catch(error) {
+        console.log(error);
+        console.warn(error.message);
+      }
+    }
 
     // call method
+    fetchUser();
+    // call method
     fetchPacesHistory();
-    if(paces && paces.length) {
+
+    if(isUserLoaded && isPacesLoaded) {
       setTimeout(() => {
         navigation.replace('App');
       }, 1000);
     } else {
-      setIsSuccess(true);
+      return Alert.alert('Unable to load data.')
     }
-  }, [isSuccess]);
+  }, [isPacesLoaded, isUserLoaded]);
 
   return(
     <View style={[styles.container, {display: 'flex', height: '100%', alignItems: 'center', justifyContent: 'center'}]}>

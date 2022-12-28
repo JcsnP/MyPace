@@ -34,8 +34,8 @@ export default function LoginScreen({ navigation }) {
 
   const Login = ({ }) => {
     axios.post(`${MYPACE_API}/login`, {
-      username: username,
-      password: password
+      username: username.trim(),
+      password: password.trim()
     })
     .then((response) => {
       if(response.data.status === 200) {
