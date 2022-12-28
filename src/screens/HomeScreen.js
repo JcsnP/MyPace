@@ -10,6 +10,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as TaskManager from 'expo-task-manager';
 import { LineChart, BarChart, PieChart, ProgressChart, ContributionGraph, StackedBarChart } from "react-native-chart-kit";
 import * as Svg from 'react-native-svg';
+import moment from "moment/moment";
 
 import { MYPACE_API } from '@env';
 
@@ -31,6 +32,7 @@ export default function HomeScreen() {
   const [goal, setGoal] = useState(0);
   const [temp_goal, setTempGoal] = useState(0);
   const {paces} = useContext(PacesContext);
+  const [badges, setBadges] = useState([]);
 
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -73,24 +75,9 @@ export default function HomeScreen() {
     _subscription = null;
   };
 
-  // custom method
-  const getStatistics = async() => {
-    try {
-      const res = await axios.get(`${MYPACE_API}/users/paces`, {
-        headers: {
-          "Authorization" : `Bearer ${token}`
-        }
-      });
-      // setUser(await res.data[0]);
-    } catch(err) {
-      console.log(err);
-    }
-  }
-
   const isFocused = useIsFocused();
   useEffect(()=>{
     _subscribe();
-    getStatistics();
 
     const fetchGoal = async() => {
       if(await AsyncStorage.getItem('goal') === null) {
@@ -106,13 +93,53 @@ export default function HomeScreen() {
       }
     }
 
-    if(isFocused) {
-      fetchGoal();
-      // console.log(isPedometerAvailable, pastStepCount, currentStepCount);
+    const checkBadge = () => {
+      badges.map(async(item) => {
+        if(pastStepCount >= item.goal) {
+          const response = await axios.post(`${MYPACE_API}/users/me/badges`,
+          {
+            badge_id: item._id
+          },
+          {
+            headers: {
+              "Authorization" : `Bearer ${token}`
+            }
+          });
+
+          if(response.data.status === 200) {
+            Alert.alert('ได้ badge ใหม่ด้วยล่ะ');
+            return;
+          }
+        }
+
+
+      });
     }
 
+    if(isFocused) {
+      fetchGoal();
+      checkBadge();
+      // console.log(isPedometerAvailable, pastStepCount, currentStepCount);
+    }
+    
     return ()=> _unsubscribe();
   },[isFocused, goal])
+
+  useEffect(() => {
+    // ดึงเป้าหมายทั้งหมดมาเช็ค
+    const fetchBadges = async() => {
+      try {
+        const response = await axios.get(`${MYPACE_API}/badges`);
+        if(response.data.status === 200) {
+          setBadges(response.data.badges);
+        }
+      } catch(error) {
+        console.log(error.message);
+      }
+    }
+
+    fetchBadges();
+  }, []);
 
   const setUserGoal = async() => {
     try {
@@ -157,12 +184,6 @@ export default function HomeScreen() {
     </TouchableOpacity>
   );
 
-  /*
-  const findPercentage = (goal, current) => {
-    return (current * 100) / goal;
-  }
-  */
-
   const findBMR = () => {
     const WEIGHT = 55;
     const HEIGHT = 173;
@@ -171,7 +192,6 @@ export default function HomeScreen() {
   }
 
   // ส่งค่าไปเก็บไว้ในฐานข้อมูลเมื่อขึ้นวันใหม่
-
   return(
     <SafeAreaView style={styles.container}>
       <Modal
@@ -255,32 +275,33 @@ export default function HomeScreen() {
         <SatisticsCard />
 
         <BarChart
-        data={{
-          labels: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-          datasets: [
-            {
-              // data: [20, 45, 28, 80, 99, 43, 99],
-              data: paces.slice(0, 7).map(item => (item.details.paces))
+          data={{
+            // labels: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+            labels: paces.slice(0, 7).map(item => (moment.utc(item.date, "DD/MM/YYYY").format('D'))).reverse(),
+            datasets: [
+              {
+                // data: [20, 45, 28, 80, 99, 43, 99],
+                data: paces.slice(0, 7).map(item => (item.details.paces)).reverse()
+              },
+            ],
+          }}
+          width={Dimensions.get('window').width - 16}
+          height={250}
+          chartConfig={{
+            backgroundColor: '#1cc910',
+            backgroundGradientFrom: '#212121',
+            backgroundGradientTo: '#252525',
+            decimalPlaces: 0,
+            color: (opacity = 1) => `rgba(215, 0, 64, ${opacity})`,
+            style: {
+              borderRadius: 7,
             },
-          ],
-        }}
-        width={Dimensions.get('window').width - 16}
-        height={250}
-        chartConfig={{
-          backgroundColor: '#1cc910',
-          backgroundGradientFrom: '#212121',
-          backgroundGradientTo: '#252525',
-          decimalPlaces: 0,
-          color: (opacity = 1) => `rgba(215, 0, 64, ${opacity})`,
-          style: {
-            borderRadius: 7,
-          },
-        }}
-        style={{
-          marginVertical: 8,
-          borderRadius: 16,
-        }}
-      />
+          }}
+          style={{
+            marginVertical: 8,
+            borderRadius: 16,
+          }}
+        />
 
         </View>
       </ScrollView>
