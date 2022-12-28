@@ -28,6 +28,7 @@ export default function LoadingScreen({navigation}) {
         })
         if(response.data.status === 200) {
           setPaces(response.data.history);
+          console.log('loading success')
         }
       } catch(error) {
         console.log(error);

@@ -127,6 +127,7 @@ export default function FollowingScreen() {
               style={styles.searchInput}
               onChangeText={setfollowingName}
               value={followingName}
+              autoCapitalize = 'none'
               clearButtonMode="always"
             />
           </View>
