@@ -30,7 +30,7 @@ const style = StyleSheet.create({
     color: '#FFF',
     fontWeight: 'bold',
     textAlign: 'center',
-    fontSize: 18,
+    fontSize: 17,
     
   },
   image: {

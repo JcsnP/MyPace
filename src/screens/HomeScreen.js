@@ -7,7 +7,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useIsFocused } from '@react-navigation/native';
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import * as TaskManager from 'expo-task-manager';
 import { LineChart, BarChart, PieChart, ProgressChart, ContributionGraph, StackedBarChart } from "react-native-chart-kit";
 import * as Svg from 'react-native-svg';
 
@@ -170,6 +170,8 @@ export default function HomeScreen() {
     const BMR = 66.5 + (13.76 * WEIGHT) + (5.003 * HEIGHT) - (6.755 * AGE);
   }
 
+  // ส่งค่าไปเก็บไว้ในฐานข้อมูลเมื่อขึ้นวันใหม่
+
   return(
     <SafeAreaView style={styles.container}>
       <Modal
@@ -258,7 +260,7 @@ export default function HomeScreen() {
           datasets: [
             {
               // data: [20, 45, 28, 80, 99, 43, 99],
-              data: paces.map(item => (item.details.paces))
+              data: paces.slice(0, 7).map(item => (item.details.paces))
             },
           ],
         }}
