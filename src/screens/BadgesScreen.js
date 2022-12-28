@@ -40,6 +40,8 @@ export default function BadgesScreen() {
     }
   }, []);
 
+  console.log(myBadges.length)
+
   return(
     <SafeAreaView style={styles.container}>
       <Text style={styles.settingTitle}>Badges</Text>

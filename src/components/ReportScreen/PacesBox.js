@@ -17,8 +17,8 @@ export default function PacesBox({item}) {
             <Text style={styles.value}>KCAL</Text>
           </View>
           <View>
-            <Text style={styles.key}>{item.details.mins}</Text>
-            <Text style={styles.value}>MINS</Text>
+            <Text style={styles.key}>{(item.details.mins / 60).toFixed(2)}</Text>
+            <Text style={styles.value}>HR</Text>
           </View>
         </View>
       </View>

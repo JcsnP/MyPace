@@ -272,7 +272,7 @@ export default function HomeScreen() {
         </View>
 
         {/* ActivityCard */}
-        <SatisticsCard />
+        <SatisticsCard information={paces} />
 
         <BarChart
           data={{

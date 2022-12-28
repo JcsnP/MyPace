@@ -23,32 +23,13 @@ const Item = ({ item }) => (
 export default function ReportScreen() {
   // const [paces, setPaces] = useState([]);
   const {paces} = useContext(PacesContext);
-  const [weekpaces, setWeekPaces] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
-  
-  const token = useContext(TokenContext).token;
 
   useEffect(() => {
     if(paces.length !== 0) {
       setIsLoaded(true);
     }
   }, []);
-
-  useEffect(() => {
-    axios.get(`${MYPACE_API}/users/paces/life`, {
-      headers: {
-        "Authorization" : `Bearer ${token}`
-      }
-    })
-    .then((response) => {
-      if(response.data.status === 200) {
-        setWeekPaces(response.data.all);
-      }
-    })
-    .catch((error) => {
-      console.log(error.message);
-    })
-  } , [isLoaded]);
 
   const renderItem = ({ item }) => (
     <Item item={item} />
@@ -61,13 +42,13 @@ export default function ReportScreen() {
           { /* ค่อยเอาเวลามาใส่ระบบคำนวณการเดินเฉลี่ย */ }
           {
             isLoaded && (
-              <HiglightBox weekpaces={weekpaces} />
+              <HiglightBox weekpaces={paces.slice(0, 7).map(item => (item.details.paces))} />
             )
           }
           {
             isLoaded && (
               <FlatList
-                data={paces}
+                data={paces.slice(0, 7)}
                 renderItem={renderItem}
               />
             )
