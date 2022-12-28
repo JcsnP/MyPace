@@ -9,6 +9,11 @@ const Stack = createStackNavigator();
 import BottomTabs from './src/navigations/BottomTab';
 import Routers from './src/routers';
 
+//import all the components we are going to use
+import { View, LogBox } from "react-native";
+
+LogBox.ignoreAllLogs();
+
 export default function App() {
   return (
     <>

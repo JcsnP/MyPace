@@ -48,7 +48,7 @@ export default function ReportScreen() {
           {
             isLoaded && (
               <FlatList
-                data={paces.slice(0, 7)}
+                data={paces}
                 renderItem={renderItem}
               />
             )

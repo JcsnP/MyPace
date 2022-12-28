@@ -15,20 +15,36 @@ import TokenContext from "../contexts/TokenContext";
 import BadgeBox from "../components/BadgeScreen/BadgeBox";
 
 export default function BadgesScreen() {
-  const [myBadges, setMyBadges] = useState([]);
+  const [unlockedBadges, setUnlockedBadges] = useState([]);
+  const [lockedBadges, setLockedBadges] = useState([]);
   const token = useContext(TokenContext).token;
   const isFocused = useIsFocused();
   
   useEffect(() => {
-    const fecthBadges = async() => {
+    const fecthUnlockedBadges = async() => {
       try {
-        const response = await axios.get(`${MYPACE_API}/users/me/badges`, {
+        const response = await axios.get(`${MYPACE_API}/users/me/badges/unlocked`, {
           headers: {
             "Authorization" : `Bearer ${token}`
           }
         });
         if(response.data.status === 200) {
-          setMyBadges(response.data.badges);
+          setUnlockedBadges(response.data.unlockedBadges);
+        }  
+      } catch(error) {
+        console.log(error);
+      }
+    }
+
+    const fecthLockedBadges = async() => {
+      try {
+        const response = await axios.get(`${MYPACE_API}/users/me/badges/locked`, {
+          headers: {
+            "Authorization" : `Bearer ${token}`
+          }
+        });
+        if(response.data.status === 200) {
+          setLockedBadges(response.data.lockedBadges);
         }  
       } catch(error) {
         console.log(error);
@@ -36,11 +52,10 @@ export default function BadgesScreen() {
     }
 
     if(isFocused) {
-      fecthBadges();
+      fecthUnlockedBadges();
+      fecthLockedBadges();
     }
   }, []);
-
-  console.log(myBadges.length)
 
   return(
     <SafeAreaView style={styles.container}>
@@ -50,8 +65,13 @@ export default function BadgesScreen() {
       >
         <View style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around'}}>
           {
-            myBadges.map((item, key) => (
-              <BadgeBox badge={item} key={key} />
+            unlockedBadges.map((item, key) => (
+              <BadgeBox badge={item} status="unlocked" />
+            ))
+          }
+          {
+            lockedBadges.map((item, key) => (
+              <BadgeBox badge={item} status="locked" />
             ))
           }
         </View>

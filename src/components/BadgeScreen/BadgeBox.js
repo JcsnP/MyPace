@@ -1,8 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 
-export default function BadgeBox({badge}) {
-  const status = (badge.badge) ? 'unlocked' : 'locked';
+export default function BadgeBox({badge, status}) {
   return(
     <View style={style.box}>
       <Image source={{uri: badge.picture}} style={style.image} />
@@ -30,7 +29,7 @@ const style = StyleSheet.create({
     color: '#FFF',
     fontWeight: 'bold',
     textAlign: 'center',
-    fontSize: 17,
+    fontSize: 15,
     
   },
   image: {
