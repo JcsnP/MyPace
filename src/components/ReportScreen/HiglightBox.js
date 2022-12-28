@@ -12,7 +12,7 @@ export default function HiglightBox({weekpaces}) {
         <Text style={customStyles.textHighlight}>Highlight</Text>
         <Text style={{fontSize:15, color:'#FFFFFF', fontWeight:'bold', marginBottom:5, paddingTop:3}}>Your total number of paces walked this week.</Text>
         <View style={{display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'baseline'}}>
-          <Text style={{color: '#fff', fontWeight: '800', fontSize: 24}}>{(weekpaces / DAYS).toLocaleString()}</Text>
+          <Text style={{color: '#fff', fontWeight: '800', fontSize: 24}}>{(Math.round(weekpaces / DAYS).toLocaleString())}</Text>
           <Text style={{color: '#777', fontWeight: '800', fontSize: 15, marginLeft: 15}}>Paces / Day</Text>
         </View>
         <View style={customStyles.rankBackground}>

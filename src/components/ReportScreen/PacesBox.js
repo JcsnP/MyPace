@@ -13,7 +13,7 @@ export default function PacesBox({item}) {
             <Text style={styles.value}>Paces</Text>
           </View>
           <View>
-            <Text style={styles.key}>{item.details.kcal}</Text>
+            <Text style={styles.key}>{Math.round(item.details.kcal)}</Text>
             <Text style={styles.value}>KCAL</Text>
           </View>
           <View>
