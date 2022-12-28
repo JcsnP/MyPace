@@ -92,20 +92,21 @@ export default function HomeScreen() {
     _subscribe();
     getStatistics();
 
-    if(isFocused) {
-      const fetchGoal = async() => {
-        if(await AsyncStorage.getItem('goal') === null) {
-          setModalVisible(true);
-        }
-        try {
-          if(await AsyncStorage.getItem('goal')) {
-            const new_goal = await AsyncStorage.getItem('goal');
-            setGoal(new_goal);
-          }
-        } catch(error) {
-          console.log(error);
-        }
+    const fetchGoal = async() => {
+      if(await AsyncStorage.getItem('goal') === null) {
+        setModalVisible(true);
       }
+      try {
+        if(await AsyncStorage.getItem('goal')) {
+          const new_goal = await AsyncStorage.getItem('goal');
+          setGoal(new_goal);
+        }
+      } catch(error) {
+        console.log(error);
+      }
+    }
+
+    if(isFocused) {
       fetchGoal();
       // console.log(isPedometerAvailable, pastStepCount, currentStepCount);
     }
@@ -133,13 +134,15 @@ export default function HomeScreen() {
       }
 
       // ถ้าค่ามากกว่า 0 ก็เก็บเข้า AsyncStorage
-      if(goal > 0) {
+      // เดิมที่ใช้ goal เลยไม่เข้าไปทำงานในรอบแรก
+      if(temp_goal > 0) {
+        console.log('goal saved')
         await AsyncStorage.setItem('goal', temp_goal);
       }
 
       setGoal(temp_goal);
       // ปิด modal
-      setModalVisible(false);
+      setModalVisible(!modalVisible);
     } catch(error) {
       console.log(error);
     }

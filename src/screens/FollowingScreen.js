@@ -89,6 +89,7 @@ export default function FollowingScreen() {
       );
       if(response.data.status === 200) {
         Alert.alert('Success');
+        setfollowingName('');
         setModalVisible(false);
         Keyboard.dismiss();
       }

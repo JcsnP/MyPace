@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { View, SafeAreaView, Text, Image, StyleSheet, ScrollView } from "react-native";
 import axios from "axios";
+import { useIsFocused } from '@react-navigation/native';
 
 import { MYPACE_API } from '@env';
 
@@ -10,20 +11,16 @@ import styles from "../styles";
 // import token context
 import TokenContext from "../contexts/TokenContext";
 
+// import components
+import BadgeBox from "../components/BadgeScreen/BadgeBox";
+
 export default function BadgesScreen() {
-  const [allBadges, setAllBadges] = useState([]);
   const [myBadges, setMyBadges] = useState([]);
   const token = useContext(TokenContext).token;
+  const isFocused = useIsFocused();
   
   useEffect(() => {
-    const fetchAllBadges = async() => {
-      const response = await axios.get(`${MYPACE_API}/badges`);
-      if(response.data.status === 200) {
-        setAllBadges(response.data.badges);
-      }
-    }
-
-    const fetchMyBadges = async() => {
+    const fecthBadges = async() => {
       try {
         const response = await axios.get(`${MYPACE_API}/users/me/badges`, {
           headers: {
@@ -32,44 +29,16 @@ export default function BadgesScreen() {
         });
         if(response.data.status === 200) {
           setMyBadges(response.data.badges);
-        }
+        }  
       } catch(error) {
         console.log(error);
       }
     }
 
-    fetchAllBadges();
-    fetchMyBadges();
-  }, []);
-
-  const checkBadge = (badge, key) => {
-    if(myBadges.includes(badge._id)) {
-      return (
-        <View style={customStyles.badgeBox} key={key}>
-          <Image
-            style={customStyles.badge}
-            source={{
-              uri: badge.picture
-            }}
-          />
-          <Text style={customStyles.title}>{badge.title}</Text>
-          <Text style={[customStyles.status, customStyles.unlock]}>ปลดล็อกแล้ว</Text>
-        </View>
-      )
+    if(isFocused) {
+      fecthBadges();
     }
-    return (
-      <View style={customStyles.badgeBox} key={key}>
-        <Image
-          style={customStyles.badge}
-          source={{
-            uri: badge.picture
-          }}
-        />
-        <Text style={customStyles.title}>{badge.title}</Text>
-        <Text style={[customStyles.status, customStyles.lock]}>ยังไม่ปลดล็อก</Text>
-      </View>
-    )
-  }
+  }, []);
 
   return(
     <SafeAreaView style={styles.container}>
@@ -79,10 +48,8 @@ export default function BadgesScreen() {
       >
         <View style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around'}}>
           {
-            allBadges.map((badge, key) => (
-              <View style={customStyles.badgeChild} key={key}>
-                {checkBadge(badge, key)}
-              </View>
+            myBadges.map((item, key) => (
+              <BadgeBox badge={item} key={key} />
             ))
           }
         </View>
@@ -131,31 +98,4 @@ const customStyles = StyleSheet.create({
   unlock: {
     color: '#CC0000'
   },
-  lock: {
-    color: '#999'
-  },
-  unlockBox: {
-    backgroundColor: '#FFFF99'
-  },
-  lockBox: {
-    backgroundColor: '#666'
-  }
 });
-
-/*
-{
-  allBadges.map((badge, key) => {
-    return(
-      <View style={customStyles.badgeBox} key={key}>
-        <Image
-          style={customStyles.badge}
-          source={{
-            uri: badge.picture
-          }}
-        />
-        <Text style={customStyles.title}>{badge.title}</Text>
-      </View>
-    );
-  })
-}
-*/
