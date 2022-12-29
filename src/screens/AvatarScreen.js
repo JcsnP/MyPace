@@ -50,7 +50,6 @@ export default function AvatarScreen({route, navigation}) {
         weight: weight,
         gender: gender
       },
-      badges: []
     })
     .then((response) => {
       if(response.data.status === 200) {
