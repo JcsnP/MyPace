@@ -35,7 +35,7 @@ export default function ReportScreen() {
     <Item item={item} />
   );
 
-  if(paces.history !== 0) {
+  if(paces.history !== 0 && paces.history !== undefined) {
     return(
       <View style={styles.container}>
         <Text style={styles.title}>Report</Text>

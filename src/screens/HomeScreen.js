@@ -84,7 +84,6 @@ export default function HomeScreen() {
   const isFocused = useIsFocused();
   useEffect(()=>{
     _subscribe();
-
     const fetchGoal = async() => {
       if(await AsyncStorage.getItem('goal') === null) {
         setModalVisible(true);
@@ -113,7 +112,7 @@ export default function HomeScreen() {
           });
 
           if(response.data.status === 200) {
-            Alert.alert('ได้ badge ใหม่ด้วยล่ะ');
+            Alert.alert(`Congratulations, you unlocked '${item.title}'.`);
             return;
           }
         }
@@ -309,11 +308,11 @@ export default function HomeScreen() {
         <BarChart
           data={{
             // labels: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-            labels: paces.slice(0, 7).map(item => (moment.utc(item.date, "DD/MM/YYYY").format('D'))).reverse(),
+            labels: !paces.length ? [1, 2, 3, 4, 5, 6, 7] : paces.slice(0, 7).map(item => (moment.utc(item.date, "DD/MM/YYYY").format('D'))).reverse(),
             datasets: [
               {
                 // data: [20, 45, 28, 80, 99, 43, 99],
-                data: paces.slice(0, 7).map(item => (item.details.paces)).reverse()
+                data: !paces.length ? [0, 0, 0, 0, 0, 0, 0] : paces.slice(0, 7).map(item => (item.details.paces)).reverse()
               },
             ],
           }}
