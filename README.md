@@ -1,11 +1,15 @@
 # MyPace
 
-หลังจากทำการ clone ไปยังเครื่องคอมพิวเตอร์แล้ว ให้ทำการใช้คำสั่ง `npm install` เพื่อติดตั้ง node_modules
+## QuickStart
+After cloning it to your computer Use the command `npm install` to install node_modules.
 
-[❗️ ต้องรันแอปร่วมกับ API ของฐานข้อมูล ❗](https://github.com/JcsnP/mypace-application-api)
+[❗️ Apps must be run in conjunction with database APIs. ❗](https://github.com/JcsnP/mypace-application-api)
 
-**Package**
+## Tools and Technologies
+[![tech stacks](https://skillicons.dev/icons?i=js,express,mongodb,postman)](https://skillicons.dev) \
+**The app is built with React Native.**
 
+## Packages
 - [React Navigation](https://reactnavigation.org/)
 - [DatePicker](https://docs.expo.dev/versions/latest/sdk/date-time-picker/)
 - [Axios](https://www.npmjs.com/package/axios)
@@ -13,6 +17,7 @@
 - [dotenv](https://www.npmjs.com/package/dotenv)
 - [validator](https://www.npmjs.com/package/validator)
 
+## Screenshots
 ### Login
 ![image1](https://user-images.githubusercontent.com/37466531/230593865-2593a7e6-badb-4f7f-8f07-227aa2ef479a.jpg)
 ### Register
@@ -21,6 +26,8 @@
 ![image8](https://user-images.githubusercontent.com/37466531/230594103-b8a0fbfa-4a8d-4b3f-a54f-5a8674a20177.jpg)
 ### Report
 ![image9](https://user-images.githubusercontent.com/37466531/230594184-d59feda9-788d-4636-af1f-e263b3cdcfdb.jpg)
+### Leaderboard
+![image](https://user-images.githubusercontent.com/37466531/230595974-3f1b1046-96d6-4596-8630-095bc8570a01.png)
 ### Setting
 ![image12](https://user-images.githubusercontent.com/37466531/230594249-74211f8f-f650-4460-b43b-6ece10a0e420.jpg)
 ### Following
